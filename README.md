@@ -1,9 +1,12 @@
 [![Stories in Ready](https://badge.waffle.io/mikedao/sales_engine.png?label=ready&title=Ready)](https://waffle.io/mikedao/sales_engine)
 # Sales Engine
 
-(insert project completion goals for first check-in here)
-
-(insert project completion goals for second check-in here)
+Phase 1: Loading data and put data in Repositories
+Phase 2: Listing and searching functionality
+Phase 3: Relationships
+Phase 4: Business Logic
+Phase 5: Refactoring
+Phase 6: Extensions
 
 # Check-in Rubrics
 
