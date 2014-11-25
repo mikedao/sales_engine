@@ -42,7 +42,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert invoiceitemrepository.data.empty?
   end
 
-  def test_it_has_merchants
+  def test_it_has_invoice_items
     invoiceitemrepository = InvoiceItemRepository.new
     invoiceitemrepository << InvoiceItem.new(data1)
     invoiceitemrepository << InvoiceItem.new(data2)
@@ -50,7 +50,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     refute invoiceitemrepository.data.empty?
   end
 
-  def test_it_has_three_merchants
+  def test_it_has_three_invoice_items
     invoiceitemrepository = InvoiceItemRepository.new
     invoiceitemrepository << InvoiceItem.new(data1)
     invoiceitemrepository << InvoiceItem.new(data2)
@@ -58,7 +58,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 3, invoiceitemrepository.data.size
   end
 
-  def test_it_can_access_individual_merchants
+  def test_it_can_access_individual_invoice_items
     invoiceitemrepository = InvoiceItemRepository.new
     invoiceitemrepository << InvoiceItem.new(data1)
     invoiceitemrepository << InvoiceItem.new(data2)
