@@ -3,7 +3,7 @@ require_relative '../lib/merchant'
 require_relative 'test_helper'
 
 class MerchantRepositoryTest < Minitest::Test
-  attr_reader :data1, :data2, :data3
+  attr_reader :data1, :data2, :data3, :merchant_repository
   def setup
     @data1 = { id: "1",
                name: "Schroeder-Jerde",
@@ -24,32 +24,66 @@ class MerchantRepositoryTest < Minitest::Test
              }
   end
 
+  def load_test_data
+    @merchant_repository = MerchantRepository.new
+    merchant_repository << Merchant.new(data1)
+    merchant_repository << Merchant.new(data2)
+    merchant_repository << Merchant.new(data3)
+  end
+
   def test_it_starts_empty
     merchant_repository = MerchantRepository.new
     assert merchant_repository.data.empty?
   end
 
   def test_it_has_merchants
-    merchant_repository = MerchantRepository.new
-    merchant_repository << Merchant.new(data1)
-    merchant_repository << Merchant.new(data2)
-    merchant_repository << Merchant.new(data3)
+    load_test_data
     refute merchant_repository.data.empty?
   end
 
   def test_it_has_three_merchants
-    merchant_repository = MerchantRepository.new
-    merchant_repository << Merchant.new(data1)
-    merchant_repository << Merchant.new(data2)
-    merchant_repository << Merchant.new(data3)
+    load_test_data
     assert_equal 3, merchant_repository.data.size
   end
 
   def test_it_can_access_individual_merchants
-    merchant_repository = MerchantRepository.new
-    merchant_repository << Merchant.new(data1)
-    merchant_repository << Merchant.new(data2)
-    merchant_repository << Merchant.new(data3)
+    load_test_data
     assert_equal "McDonalds", merchant_repository.data[2].name
   end
+
+  def test_all_method_returns_all_merchants
+    load_test_data
+    refute merchant_repository.all.empty?
+    assert_equal 3, merchant_repository.all.size
+    assert_equal merchant_repository.data, merchant_repository.all
+  end
+
+  def test_all_returns_array
+    load_test_data
+    assert merchant_repository.all.is_a?(Array)
+  end
+
+  def test_random_returns_one_merchant
+    load_test_data
+    assert merchant_repository.random.is_a?(Merchant)
+  end
+
+  def test_random_does_not_return_array_of_merchants
+    load_test_data
+    refute merchant_repository.random.is_a?(Array)
+  end
+
+  def test_find_by_id
+    load_test_data
+    result = merchant_repository.find_by_id(2)
+    assert_equal "Sear", result.name
+  end
+
+  def test_find_all_by_id
+    load_test_data
+    result = merchant_repository.find_all_by_id(2)
+    assert_equal "Sear", result.first.name
+  end
+
+
 end
