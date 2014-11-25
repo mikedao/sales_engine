@@ -8,9 +8,9 @@ class InvoiceTest < Minitest::Test
 
   def setup
     @data = {
-              id:          1,
-              customer_id: 1,
-              merchant_id: 26,
+              id:          "1",
+              customer_id: "1",
+              merchant_id: "26",
               status:      "shipped",
               created_at:  "2012-03-25 09:54:09 UTC",
               updated_at:  "2012-03-25 09:54:09 UTC"
@@ -49,7 +49,7 @@ class InvoiceTest < Minitest::Test
 
   def test_it_has_an_updated_at_date
     invoice = Invoice.new(data)
-    
+
     assert_equal "2012-03-25 09:54:09 UTC", invoice.updated_at
   end
 end
