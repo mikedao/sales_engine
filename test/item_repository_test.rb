@@ -39,6 +39,11 @@ class ItemRepositoryTest < Minitest::Test
     }
   end
 
+  def test_it_starts_empty
+    itemrepository = ItemRepository.new
+    assert itemrepository.data.empty?
+  end
+  
   def test_it_has_items
     itemrepository = ItemRepository.new
     itemrepository << Item.new(data1)
