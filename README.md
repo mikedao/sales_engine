@@ -2,11 +2,17 @@
 # Sales Engine
 
 Phase 1: Loading data and put data in Repositories
+
 Phase 2: Listing and searching functionality
+
 Phase 3: Relationships
+
 Phase 4: Business Logic
+
 Phase 5: Refactoring
+
 Phase 6: Extensions
+
 
 # Check-in Rubrics
 
