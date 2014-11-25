@@ -13,7 +13,7 @@ class InvoiceRepositoryTest < Minitest::Test
       id:          "1",
       customer_id: "2",
       merchant_id: "26",
-      status:      "shipped",
+      status:      "failed",
       created_at:  "2012-03-25 09:54:09 UTC",
       updated_at:  "2012-03-25 09:54:09 UTC"
     }
@@ -23,8 +23,8 @@ class InvoiceRepositoryTest < Minitest::Test
       customer_id: "2",
       merchant_id: "29",
       status:      "shipped",
-      created_at:  "2012-03-25 12:54:12 UTC",
-      updated_at:  "2012-03-25 12:54:12 UTC"
+      created_at:  "2013-03-25 12:54:12 UTC",
+      updated_at:  "2013-03-25 12:54:12 UTC"
     }
 
     @data3 = {
@@ -32,8 +32,8 @@ class InvoiceRepositoryTest < Minitest::Test
       customer_id: "4",
       merchant_id: "26",
       status:      "shipped",
-      created_at:  "2012-03-25 09:54:10 UTC",
-      updated_at:  "2012-03-25 10:54:09 UTC"
+      created_at:  "2012-03-25 09:54:09 UTC",
+      updated_at:  "2012-03-25 09:54:09 UTC"
     }
   end
 
@@ -91,7 +91,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_finds_by_customer_id
     load_data
     result = invoice_repository.find_by_customer_id(2)
-    assert_equal "shipped", result.status
+    assert_equal "failed", result.status
   end
 
   def test_it_finds_all_by_customer_id
@@ -119,45 +119,48 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_by_status
-    skip
     load_data
-    result = invoice_repository.find_by_id(2)
+    result = invoice_repository.find_by_status("shipped")
     assert_equal 29, result.merchant_id
   end
 
   def test_it_finds_all_by_status
-    skip
     load_data
-    result = invoice_repository.find_all_by_id(3)
-    assert_equal 85, result.first.merchant_id
+    result = invoice_repository.find_all_by_status("shipped")
+    assert_equal 2, result.size
+    e1, e2 = result
+    assert_equal 29, e1.merchant_id
+    assert_equal 26, e2.merchant_id
   end
 
   def test_it_finds_by_created_at_date
-    skip
     load_data
-    result = invoice_repository.find_by_id(2)
-    assert_equal 29, result.merchant_id
+    result = invoice_repository.find_by_created_at("2012-03-25 09:54:09 UTC")
+    assert_equal "failed", result.status
   end
 
   def test_it_finds_all_by_created_at_date
-    skip
     load_data
-    result = invoice_repository.find_all_by_id(3)
-    assert_equal 85, result.first.merchant_id
+    result = invoice_repository.find_all_by_created_at("2012-03-25 09:54:09 UTC")
+    assert_equal 2, result.size
+    e1, e2 = result
+    assert_equal 1, e1.id
+    assert_equal 3, e2.id
   end
 
   def test_it_finds_by_updated_at_date
-    skip
     load_data
-    result = invoice_repository.find_by_id(2)
-    assert_equal 29, result.merchant_id
+    result = invoice_repository.find_by_updated_at("2012-03-25 09:54:09 UTC")
+    assert_equal "failed", result.status
   end
 
   def test_it_finds_all_by_updated_at_date
-    skip
     load_data
-    result = invoice_repository.find_all_by_id(3)
-    assert_equal 85, result.first.merchant_id
+    result = invoice_repository.find_all_by_updated_at("2012-03-25 09:54:09 UTC")
+    assert_equal 2, result.size
+    e1, e2 = result
+    assert_equal 1, e1.id
+    assert_equal 3, e2.id
   end
 
 end

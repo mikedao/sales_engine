@@ -52,4 +52,40 @@ class InvoiceRepository
       datum.merchant_id == criteria
     end
   end
+
+  def find_by_status(criteria)
+    @data.find do |datum|
+      datum.status == criteria
+    end
+  end
+
+  def find_all_by_status(criteria)
+    @data.find_all do |datum|
+      datum.status == criteria
+    end
+  end
+
+  def find_by_created_at(criteria)
+    @data.find do |datum|
+      datum.created_at == criteria
+    end
+  end
+
+  def find_all_by_created_at(criteria)
+    @data.find_all do |datum|
+      datum.created_at == criteria
+    end
+  end
+
+  def find_by_updated_at(criteria)
+    @data.find do |datum|
+      datum.updated_at == criteria
+    end
+  end
+
+  def find_all_by_updated_at(criteria)
+    @data.find_all do |datum|
+      datum.updated_at == criteria
+    end
+  end
 end
