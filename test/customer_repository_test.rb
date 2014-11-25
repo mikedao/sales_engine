@@ -30,7 +30,7 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_it_starts_empty
     customer_repository = CustomerRepository.new
-    customer_repository.data.empty?
+    assert customer_repository.data.empty?
   end
 
   def test_it_has_customers
