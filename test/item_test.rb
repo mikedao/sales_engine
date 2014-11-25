@@ -8,11 +8,11 @@ class ItemTest < Minitest::Test
 
   def setup
     @data = {
-              id: 1,
+              id: "1",
               name: "Skateboard",
               description: "Transportation device",
-              unit_price: 75107,
-              merchant_id: 1,
+              unit_price: "75107",
+              merchant_id: "1",
               created_at: "2012-03-27 14:53:59 UTC",
               updated_at: "2012-03-27 14:53:59 UTC"
             }
