@@ -19,8 +19,8 @@ class MerchantRepositoryTest < Minitest::Test
 
     @data3 = { id: "3",
                name: "McDonalds",
-               created_at: "2012-03-27 14:53:59 UTC",
-               updated_at: "2012-03-27 14:53:59 UTC"
+               created_at: "2013-03-27 14:53:59 UTC",
+               updated_at: "2013-03-27 14:53:59 UTC"
              }
   end
 
@@ -85,5 +85,39 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal "Sear", result.first.name
   end
 
+  def test_find_by_name
+    load_test_data
+    result = merchant_repository.find_by_name("Sear")
+    assert_equal "2013-03-27 14:53:59 UTC", result.created_at
+  end
 
+  def test_find_all_by_name
+    load_test_data
+    result = merchant_repository.find_all_by_name("Sear")
+    assert_equal "2013-03-27 14:53:59 UTC", result.first.created_at
+  end
+
+  def test_find_by_created_at
+    load_test_data
+    result = merchant_repository.find_by_created_at("2013-03-27 14:53:59 UTC")
+    assert_equal "Sear", result.name
+  end
+
+  def test_find_all_by_created_at
+    load_test_data
+    result = merchant_repository.find_all_by_created_at("2013-03-27 14:53:59 UTC")
+    assert_equal "McDonalds", result.last.name
+  end
+
+  def test_find_by_updated_at
+    load_test_data
+    result = merchant_repository.find_by_updated_at("2013-03-27 14:53:59 UTC")
+    assert_equal "Sear", result.name
+  end
+
+  def test_find_all_by_updated_at
+    load_test_data
+    result = merchant_repository.find_all_by_updated_at("2013-03-27 14:53:59 UTC")
+    assert_equal "McDonalds", result.last.name
+  end
 end
