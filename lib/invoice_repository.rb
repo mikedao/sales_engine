@@ -1,6 +1,6 @@
-class ItemRepository
+class InvoiceRepository
   attr_reader   :data
-
+  
   def initialize
     @data = []
   end
