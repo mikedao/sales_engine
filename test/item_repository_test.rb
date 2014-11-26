@@ -42,9 +42,15 @@ class ItemRepositoryTest < Minitest::Test
 
   def load_test_data
     @item_repository = ItemRepository.new
-    item_repository << Item.new(data1)
-    item_repository << Item.new(data2)
-    item_repository << Item.new(data3)
+    item_repository << data1
+    item_repository << data2
+    item_repository << data3
+  end
+
+  def test_it_knows_its_parent
+    ir = ItemRepository.new
+    ir << data1
+    assert_equal ir, ir.data.first.repository
   end
 
   def test_it_starts_empty

@@ -1,3 +1,5 @@
+require_relative 'item'
+
 class ItemRepository
   attr_reader   :data
 
@@ -6,7 +8,7 @@ class ItemRepository
   end
 
   def <<(data)
-    @data << data
+    @data << Item.new(data, self)
   end
 
   def all
