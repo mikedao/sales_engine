@@ -92,4 +92,77 @@ class TransactionsRepositoryTest < Minitest::Test
     assert_equal 4654405418242222, result.first.credit_card_number
   end
 
+  def find_by_invoice_id
+    load_test_data
+    result = transaction_repository.find_by_invoice_id(2)
+    assert_equal "success", result.result
+  end
+
+  def test_find_all_by_invoice_id
+    load_test_data
+    result = transaction_repository.find_all_by_invoice_id(2)
+    assert_equal 4654405418242222, result.first.credit_card_number
+  end
+
+  def find_by_credit_card_number
+    load_test_data
+    result = transaction_repository.find_by_credit_card_number(4654405418242222)
+    assert_equal 2, result.invoice_id
+  end
+
+  def find_all_by_credit_card_number
+    load_test_data
+    result = transaction_repository.find_by_credit_card_number(4654405418242222)
+    assert_equal 2, result.last.invoice_id
+  end
+
+  def find_by_credit_card_expiration_date
+    load_test_data
+    result = transaction_repository.find_by_credit_card_expiration_date("")
+    assert_equal 1, result.id
+  end
+
+  def find_all_by_credit_card_expiration_date
+    load_test_data
+    result = transaction_repository.find_by_credit_card_expiration_date("")
+    assert_equal 3, result.last.id
+  end
+
+  def find_by_result
+    load_test_data
+    result = transaction_repository.find_by_result("success")
+    assert_equal 1, result.id
+  end
+
+  def find_all_by_result
+    load_test_data
+    result = transaction_repository.find_all_by_result("success")
+    assert_equal 2, result.last.id
+  end
+
+  def find_by_created_at
+    load_test_data
+    result = transaction_repository.find_by_created_date("2012-03-27 14:54:09 UTC")
+    assert_equal 2, result.id
+  end
+
+  def find_all_created_at
+    load_test_data
+    result = transaction_repository.find_all_by_created_date("2013-03-27 14:54:09 UTC")
+    assert_equal 3, result.last.id
+  end
+
+  def find_by_updated_at
+    load_test_data
+    result = transaction_repository.find_by_updated_date("2012-03-27 14:54:09 UTC")
+    assert_equal 2, result.id
+  end
+
+  def find_all_updated_at
+    load_test_data
+    result = transaction_repository.find_all_by_updated_date("2013-03-27 14:54:09 UTC")
+    assert_equal 3, result.last.id
+  end
+
+
 end

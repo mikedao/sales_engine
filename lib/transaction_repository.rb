@@ -26,6 +26,56 @@ class TransactionRepository
     finder_all_by(:id, criteria)
   end
 
+  def find_by_invoice_id(criteria)
+    finder_by(:id, criteria)
+  end
+
+  def find_all_by_invoice_id(criteria)
+    finder_all_by(:id, criteria)
+  end
+
+  def find_by_credit_card_number(criteria)
+    finder_by(:id, criteria)
+  end
+
+  def find_all_by_credit_card_number(criteria)
+    finder_all_by(:id, criteria)
+  end
+
+  def find_by_credit_card_expiration_date(criteria)
+    finder_by(:id, criteria)
+  end
+
+  def find_all_by_credit_card_expiration_date(criteria)
+    finder_all_by(:id, criteria)
+  end
+
+  def find_by_result(criteria)
+    finder_by(:id, criteria)
+  end
+
+  def find_all_by_result(criteria)
+    finder_all_by(:id, criteria)
+  end
+
+  def find_by_created_at(criteria)
+    finder_by(:id, criteria)
+  end
+
+  def find_all_by_created_at(criteria)
+    finder_all_by(:id, criteria)
+  end
+
+  def find_by_updated_at(criteria)
+    finder_by(:id, criteria)
+  end
+
+  def find_all_by_updated_at(criteria)
+    finder_all_by(:id, criteria)
+  end
+
+
+
   def finder_by(attribute, criteria)
     @data.find do |datum|
       datum.send(attribute) == criteria
