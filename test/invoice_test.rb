@@ -20,19 +20,19 @@ class InvoiceTest < Minitest::Test
   def test_it_has_an_id
     invoice = Invoice.new(data, nil)
 
-    assert_equal 1, invoice.id
+    assert_equal "1", invoice.id
   end
 
   def test_it_has_a_customer_id
     invoice = Invoice.new(data, nil)
 
-    assert_equal 1, invoice.customer_id
+    assert_equal "1", invoice.customer_id
   end
 
   def test_it_has_a_merchant_id
     invoice = Invoice.new(data, nil)
 
-    assert_equal 26, invoice.merchant_id
+    assert_equal "26", invoice.merchant_id
   end
 
   def test_it_has_a_status

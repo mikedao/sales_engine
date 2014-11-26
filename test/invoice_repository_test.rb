@@ -44,6 +44,16 @@ class InvoiceRepositoryTest < Minitest::Test
     invoice_repository << data3
   end
 
+  def test_it_loads_csv_file
+    ir = InvoiceRepository.new
+    assert ir.data.empty?
+    ir.csv_loader('./test/fixtures/invoices_test.csv')
+    refute ir.data.empty?
+    assert_equal 10, ir.data.count
+    assert_equal "2", ir.data[8].customer_id
+  end
+
+
   def test_it_starts_empty
     invoice_repository = InvoiceRepository.new
     assert invoice_repository.data.empty?
@@ -85,50 +95,50 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_finds_by_id
     load_data
-    result = invoice_repository.find_by_id(2)
-    assert_equal 29, result.merchant_id
+    result = invoice_repository.find_by_id("2")
+    assert_equal "29", result.merchant_id
   end
 
   def test_it_finds_all_by_id
     load_data
-    result = invoice_repository.find_all_by_id(3)
-    assert_equal 26, result.first.merchant_id
+    result = invoice_repository.find_all_by_id("3")
+    assert_equal "26", result.first.merchant_id
   end
 
   def test_it_finds_by_customer_id
     load_data
-    result = invoice_repository.find_by_customer_id(2)
+    result = invoice_repository.find_by_customer_id("2")
     assert_equal "failed", result.status
   end
 
   def test_it_finds_all_by_customer_id
     load_data
-    result = invoice_repository.find_all_by_customer_id(2)
+    result = invoice_repository.find_all_by_customer_id("2")
     assert_equal 2, result.size
     e1, e2 = result
-    assert_equal 1, e1.id
-    assert_equal 2, e2.id
+    assert_equal "1", e1.id
+    assert_equal "2", e2.id
   end
 
   def test_it_finds_by_merchant_id
     load_data
-    result = invoice_repository.find_by_merchant_id(29)
-    assert_equal 2, result.customer_id
+    result = invoice_repository.find_by_merchant_id("29")
+    assert_equal "2", result.customer_id
   end
 
   def test_it_finds_all_by_merchant_id
     load_data
-    result = invoice_repository.find_all_by_merchant_id(26)
+    result = invoice_repository.find_all_by_merchant_id("26")
     assert_equal 2, result.size
     e1, e2 = result
-    assert_equal 1, e1.id
-    assert_equal 3, e2.id
+    assert_equal "1", e1.id
+    assert_equal "3", e2.id
   end
 
   def test_it_finds_by_status
     load_data
     result = invoice_repository.find_by_status("shipped")
-    assert_equal 29, result.merchant_id
+    assert_equal "29", result.merchant_id
   end
 
   def test_it_finds_all_by_status
@@ -136,8 +146,8 @@ class InvoiceRepositoryTest < Minitest::Test
     result = invoice_repository.find_all_by_status("shipped")
     assert_equal 2, result.size
     e1, e2 = result
-    assert_equal 29, e1.merchant_id
-    assert_equal 26, e2.merchant_id
+    assert_equal "29", e1.merchant_id
+    assert_equal "26", e2.merchant_id
   end
 
   def test_it_finds_by_created_at_date
@@ -151,8 +161,8 @@ class InvoiceRepositoryTest < Minitest::Test
     result = invoice_repository.find_all_by_created_at("2012-03-25 09:54:09 UTC")
     assert_equal 2, result.size
     e1, e2 = result
-    assert_equal 1, e1.id
-    assert_equal 3, e2.id
+    assert_equal "1", e1.id
+    assert_equal "3", e2.id
   end
 
   def test_it_finds_by_updated_at_date
@@ -166,8 +176,8 @@ class InvoiceRepositoryTest < Minitest::Test
     result = invoice_repository.find_all_by_updated_at("2012-03-25 09:54:09 UTC")
     assert_equal 2, result.size
     e1, e2 = result
-    assert_equal 1, e1.id
-    assert_equal 3, e2.id
+    assert_equal "1", e1.id
+    assert_equal "3", e2.id
   end
 
 end
