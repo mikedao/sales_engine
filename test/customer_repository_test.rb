@@ -33,9 +33,9 @@ class CustomerRepositoryTest < Minitest::Test
 
   def load_test_data
     @customer_repository = CustomerRepository.new
-    customer_repository << Customer.new(data1)
-    customer_repository << Customer.new(data2)
-    customer_repository << Customer.new(data3)
+    customer_repository << data1
+    customer_repository << data2
+    customer_repository << data3
   end
 
 
@@ -44,6 +44,12 @@ class CustomerRepositoryTest < Minitest::Test
     assert customer_repository.data.empty?
   end
 
+  def test_it_knows_its_parents
+    cr = CustomerRepository.new
+    cr << data1
+    assert_equal cr, cr.data.first.repository
+  end
+  
   def test_it_has_customers
     load_test_data
     assert_equal 3, customer_repository.data.size
