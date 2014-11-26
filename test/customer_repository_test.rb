@@ -38,6 +38,14 @@ class CustomerRepositoryTest < Minitest::Test
     customer_repository << data3
   end
 
+  def test_it_loads_csv_file
+    cr = CustomerRepository.new
+    assert cr.data.empty?
+    cr.csv_loader('./fixtures/customers_test.csv')
+    refute cr.data.empty?
+    assert_equal 10, cr.data.count
+    assert_equal "Parker", cr.data[6].first_name
+  end
 
   def test_it_starts_empty
     customer_repository = CustomerRepository.new
@@ -49,7 +57,7 @@ class CustomerRepositoryTest < Minitest::Test
     cr << data1
     assert_equal cr, cr.data.first.repository
   end
-  
+
   def test_it_has_customers
     load_test_data
     assert_equal 3, customer_repository.data.size
@@ -83,13 +91,13 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_find_by_id
     load_test_data
-    results = customer_repository.find_by_id(1)
+    results = customer_repository.find_by_id("1")
     assert_equal "Joey", results.first_name
   end
 
   def test_find_all_by_id
     load_test_data
-    results = customer_repository.find_all_by_id(2)
+    results = customer_repository.find_all_by_id('2')
     assert_equal "Joey", results.last.first_name
   end
 
