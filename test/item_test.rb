@@ -19,37 +19,37 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_an_id
-    item = Item.new(data)
+    item = Item.new(data, nil)
     assert_equal 1, item.id
   end
 
   def test_it_has_a_name
-    item = Item.new(data)
+    item = Item.new(data, nil)
     assert_equal "Skateboard", item.name
   end
 
   def test_it_has_an_description
-    item = Item.new(data)
+    item = Item.new(data, nil)
     assert_equal "Transportation device", item.description
   end
 
   def test_it_has_an_unit_price
-    item = Item.new(data)
+    item = Item.new(data, nil)
     assert_equal 75107, item.unit_price
   end
 
   def test_it_has_an_merchant_id
-    item = Item.new(data)
+    item = Item.new(data, nil)
     assert_equal 1, item.merchant_id
   end
 
   def test_it_has_a_created_at_date
-    item = Item.new(data)
+    item = Item.new(data, nil)
     assert_equal "2012-03-27 14:53:59 UTC", item.created_at
   end
 
   def test_it_has_an_updated_at_date
-    item = Item.new(data)
+    item = Item.new(data, nil)
     assert_equal "2012-03-27 14:53:59 UTC", item.updated_at
   end
 end
