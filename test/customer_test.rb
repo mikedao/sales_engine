@@ -16,7 +16,7 @@ class CustomerTest < Minitest::Test
   def test_it_has_an_id
     customer = Customer.new(data, nil)
 
-    assert_equal 1, customer.id
+    assert_equal "1", customer.id
   end
 
   def test_it_has_a_first_name
