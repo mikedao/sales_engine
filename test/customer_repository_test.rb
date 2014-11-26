@@ -41,7 +41,7 @@ class CustomerRepositoryTest < Minitest::Test
   def test_it_loads_csv_file
     cr = CustomerRepository.new
     assert cr.data.empty?
-    cr.csv_loader('./fixtures/customers_test.csv')
+    cr.csv_loader('./test/fixtures/customers_test.csv')
     refute cr.data.empty?
     assert_equal 10, cr.data.count
     assert_equal "Parker", cr.data[6].first_name
@@ -97,7 +97,7 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_find_all_by_id
     load_test_data
-    results = customer_repository.find_all_by_id('2')
+    results = customer_repository.find_all_by_id("2")
     assert_equal "Joey", results.last.first_name
   end
 

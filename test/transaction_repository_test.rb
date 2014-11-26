@@ -42,6 +42,15 @@ class TransactionsRepositoryTest < Minitest::Test
     transaction_repository << data3
   end
 
+  def test_it_loads_csv_file
+    tr = TransactionRepository.new
+    assert tr.data.empty?
+    tr.csv_loader('./test/fixtures/transactions_test.csv')
+    refute tr.data.empty?
+    assert_equal 10, tr.data.count
+    assert_equal "4203696133194408", tr.data[5].credit_card_number
+  end
+
 
   def test_it_starts_empty
     transaction_repository = TransactionRepository.new
@@ -89,86 +98,86 @@ class TransactionsRepositoryTest < Minitest::Test
 
   def test_find_by_id
     load_test_data
-    result = transaction_repository.find_by_id(2)
-    assert_equal 4654405418242222, result.credit_card_number
+    result = transaction_repository.find_by_id("2")
+    assert_equal "4654405418242222", result.credit_card_number
   end
 
   def test_find_all_by_id
     load_test_data
-    result = transaction_repository.find_all_by_id(2)
-    assert_equal 4654405418242222, result.first.credit_card_number
+    result = transaction_repository.find_all_by_id("2")
+    assert_equal "4654405418242222", result.first.credit_card_number
   end
 
   def find_by_invoice_id
     load_test_data
-    result = transaction_repository.find_by_invoice_id(2)
+    result = transaction_repository.find_by_invoice_id("2")
     assert_equal "success", result.result
   end
 
   def test_find_all_by_invoice_id
     load_test_data
-    result = transaction_repository.find_all_by_invoice_id(2)
-    assert_equal 4654405418242222, result.first.credit_card_number
+    result = transaction_repository.find_all_by_invoice_id("2")
+    assert_equal "4654405418242222", result.first.credit_card_number
   end
 
   def find_by_credit_card_number
     load_test_data
-    result = transaction_repository.find_by_credit_card_number(4654405418242222)
-    assert_equal 2, result.invoice_id
+    result = transaction_repository.find_by_credit_card_number("4654405418242222")
+    assert_equal "2", result.invoice_id
   end
 
   def find_all_by_credit_card_number
     load_test_data
-    result = transaction_repository.find_by_credit_card_number(4654405418242222)
-    assert_equal 2, result.last.invoice_id
+    result = transaction_repository.find_by_credit_card_number("4654405418242222")
+    assert_equal "2", result.last.invoice_id
   end
 
   def find_by_credit_card_expiration_date
     load_test_data
     result = transaction_repository.find_by_credit_card_expiration_date("")
-    assert_equal 1, result.id
+    assert_equal "1", result.id
   end
 
   def find_all_by_credit_card_expiration_date
     load_test_data
     result = transaction_repository.find_by_credit_card_expiration_date("")
-    assert_equal 3, result.last.id
+    assert_equal "3", result.last.id
   end
 
   def find_by_result
     load_test_data
     result = transaction_repository.find_by_result("success")
-    assert_equal 1, result.id
+    assert_equal "1", result.id
   end
 
   def find_all_by_result
     load_test_data
     result = transaction_repository.find_all_by_result("success")
-    assert_equal 2, result.last.id
+    assert_equal "2", result.last.id
   end
 
   def find_by_created_at
     load_test_data
     result = transaction_repository.find_by_created_date("2012-03-27 14:54:09 UTC")
-    assert_equal 2, result.id
+    assert_equal "2", result.id
   end
 
   def find_all_created_at
     load_test_data
     result = transaction_repository.find_all_by_created_date("2013-03-27 14:54:09 UTC")
-    assert_equal 3, result.last.id
+    assert_equal "3", result.last.id
   end
 
   def find_by_updated_at
     load_test_data
     result = transaction_repository.find_by_updated_date("2012-03-27 14:54:09 UTC")
-    assert_equal 2, result.id
+    assert_equal "2", result.id
   end
 
   def find_all_updated_at
     load_test_data
     result = transaction_repository.find_all_by_updated_date("2013-03-27 14:54:09 UTC")
-    assert_equal 3, result.last.id
+    assert_equal "3", result.last.id
   end
 
 
