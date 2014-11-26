@@ -18,88 +18,73 @@ class ItemRepository
   end
 
   def find_by_id(criteria)
-    @data.find do |datum|
-      datum.id == criteria
-    end
+    finder_by(:id, criteria)
   end
 
   def find_all_by_id(criteria)
-    @data.find_all do |datum|
-      datum.id == criteria
-    end
+    finder_all_by(:id, criteria)
   end
 
   def find_by_name(criteria)
-    @data.find do |datum|
-      datum.name == criteria
-    end
+    finder_by(:name, criteria)
   end
 
   def find_all_by_name(criteria)
-    @data.find_all do |datum|
-      datum.name == criteria
-    end
+    finder_all_by(:name, criteria)
   end
 
   def find_by_description(criteria)
-    @data.find do |datum|
-      datum.description == criteria
-    end
+    finder_by(:description, criteria)
   end
 
   def find_all_by_description(criteria)
-    @data.find_all do |datum|
-      datum.description == criteria
-    end
+    finder_all_by(:description, criteria)
   end
 
   def find_by_unit_price(criteria)
-    @data.find do |datum|
-      datum.unit_price == criteria
-    end
+    finder_by(:unit_price, criteria)
   end
 
   def find_all_by_unit_price(criteria)
-    @data.find_all do |datum|
-      datum.unit_price == criteria
-    end
+    finder_all_by(:unit_price, criteria)
   end
 
   def find_by_merchant_id(criteria)
-    @data.find do |datum|
-      datum.merchant_id == criteria
-    end
+    finder_by(:merchant_id, criteria)
   end
 
   def find_all_by_merchant_id(criteria)
-    @data.find_all do |datum|
-      datum.merchant_id == criteria
-    end
+    finder_all_by(:merchant_id, criteria)
   end
 
   def find_by_created_at(criteria)
-    @data.find do |datum|
-      datum.created_at == criteria
-    end
+    finder_by(:created_at, criteria)
   end
 
   def find_all_by_created_at(criteria)
-    @data.find_all do |datum|
-      datum.created_at == criteria
-    end
+    finder_all_by(:created_at, criteria)
   end
 
   def find_by_updated_at(criteria)
-    @data.find do |datum|
-      datum.updated_at == criteria
-    end
+    finder_by(:updated_at, criteria)
   end
 
   def find_all_by_updated_at(criteria)
-    @data.find_all do |datum|
-      datum.updated_at == criteria
+    finder_all_by(:updated_at, criteria)
+  end
+
+  def finder_by(attribute, criteria)
+    @data.find do |datum|
+      datum.send(attribute) == criteria
     end
   end
+
+  def finder_all_by(attribute, criteria)
+    @data.find_all do |datum|
+      datum.send(attribute) == criteria
+    end
+  end
+
 
 
 
