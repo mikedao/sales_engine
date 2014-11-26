@@ -18,7 +18,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_has_an_id
-    invoice = Invoice.new(data)
+    invoice = Invoice.new(data, self)
 
     assert_equal 1, invoice.id
   end
