@@ -7,7 +7,7 @@ class TransactionRepository
   end
 
   def <<(data)
-    @data << data
+    @data << Transaction.new(data, self)
   end
 
   def all

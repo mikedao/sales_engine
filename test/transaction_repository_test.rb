@@ -37,15 +37,22 @@ class TransactionsRepositoryTest < Minitest::Test
 
   def load_test_data
     @transaction_repository = TransactionRepository.new
-    transaction_repository << Transaction.new(data1)
-    transaction_repository << Transaction.new(data2)
-    transaction_repository << Transaction.new(data3)
+    transaction_repository << data1
+    transaction_repository << data2
+    transaction_repository << data3
   end
 
 
   def test_it_starts_empty
     transaction_repository = TransactionRepository.new
     assert transaction_repository.data.empty?
+  end
+
+
+  def test_it_knows_parents
+    tr = TransactionRepository.new
+    tr << data1
+    assert_equal tr, tr.data.first.repository
   end
 
   def test_it_has_transactions

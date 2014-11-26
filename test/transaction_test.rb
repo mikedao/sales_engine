@@ -18,37 +18,37 @@ class TransactionTest < Minitest::Test
   end
 
   def test_has_an_id
-    transaction = Transaction.new(data)
+    transaction = Transaction.new(data, nil)
     assert_equal 1, transaction.id
   end
 
   def test_has_an_invoice_id
-    transaction = Transaction.new(data)
+    transaction = Transaction.new(data, nil)
     assert_equal 1, transaction.invoice_id
   end
 
   def test_has_a_credit_card_number
-    transaction = Transaction.new(data)
+    transaction = Transaction.new(data, nil)
     assert_equal 4654405418249632, transaction.credit_card_number
   end
 
   def test_has_a_credit_card_expiration
-    transaction = Transaction.new(data)
+    transaction = Transaction.new(data, nil)
     assert_equal "", transaction.credit_card_expiration_date
   end
 
   def test_has_a_result
-    transaction = Transaction.new(data)
+    transaction = Transaction.new(data, nil)
     assert_equal "success", transaction.result
   end
 
   def test_has_created_at
-    transaction = Transaction.new(data)
+    transaction = Transaction.new(data, nil)
     assert_equal "2012-03-27 14:54:09 UTC", transaction.created_at
   end
 
   def test_has_updated_at
-    transaction = Transaction.new(data)
+    transaction = Transaction.new(data, nil)
     assert_equal "2012-03-27 14:54:09 UTC", transaction.updated_at
   end
 
