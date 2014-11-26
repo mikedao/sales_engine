@@ -1,3 +1,4 @@
+require 'CSV'
 require_relative 'invoice'
 
 class InvoiceRepository
@@ -6,6 +7,13 @@ class InvoiceRepository
   def initialize
     @data = []
   end
+
+  def csv_loader(path = './data/invoices.csv')
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
+      @data << Invoice.new(data, self)
+    end
+  end
+
 
   def <<(data)
     @data << Invoice.new(data,self)
