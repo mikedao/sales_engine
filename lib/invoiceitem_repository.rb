@@ -5,7 +5,7 @@ class InvoiceItemRepository
   end
 
   def <<(data)
-    @data << data
+    @data << InvoiceItem.new(data, self)
   end
 
   def all

@@ -40,15 +40,22 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def load_test_data
     @invoiceitemrepository = InvoiceItemRepository.new
-    invoiceitemrepository << InvoiceItem.new(data1)
-    invoiceitemrepository << InvoiceItem.new(data2)
-    invoiceitemrepository << InvoiceItem.new(data3)
+    invoiceitemrepository << data1
+    invoiceitemrepository << data2
+    invoiceitemrepository << data3
   end
 
   def test_it_starts_empty
     invoiceitemrepository = InvoiceItemRepository.new
     assert invoiceitemrepository.data.empty?
   end
+
+  def test_it_knows_its_parent
+    iir = InvoiceItemRepository.new
+    iir << data1
+    assert iir, iir.data.first.repository
+  end
+
 
   def test_it_has_invoice_items
     load_test_data
