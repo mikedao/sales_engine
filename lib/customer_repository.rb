@@ -1,3 +1,5 @@
+require_relative 'customer'
+
 class CustomerRepository
   attr_reader :data
 
@@ -6,7 +8,7 @@ class CustomerRepository
   end
 
   def <<(data)
-    @data << data
+    @data << Customer.new(data, self)
   end
 
   def all
