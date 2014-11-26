@@ -1,3 +1,5 @@
+require_relative 'invoice'
+
 class InvoiceRepository
   attr_reader   :data
 
@@ -6,7 +8,7 @@ class InvoiceRepository
   end
 
   def <<(data)
-    @data << data
+    @data << Invoice.new(data,self)
   end
 
   def all

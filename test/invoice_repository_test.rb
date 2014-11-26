@@ -39,9 +39,9 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def load_data
     @invoice_repository = InvoiceRepository.new
-    invoice_repository << Invoice.new(data1)
-    invoice_repository << Invoice.new(data2)
-    invoice_repository << Invoice.new(data3)
+    invoice_repository << data1
+    invoice_repository << data2
+    invoice_repository << data3
   end
 
   def test_it_starts_empty
@@ -53,6 +53,13 @@ class InvoiceRepositoryTest < Minitest::Test
     load_data
     refute invoice_repository.data.empty?
   end
+
+  def test_invoice_knows_its_parent
+    ir = InvoiceRepository.new
+    ir << data1
+    assert_equal ir, ir.data.first.repository
+  end
+
 
   def test_it_has_three_invoices
     load_data
