@@ -26,8 +26,8 @@ class CustomerRepositoryTest < Minitest::Test
     @data3 = { id:         "3",
                first_name: "Mary",
                last_name:  "Ondricka",
-               created_at: "2012-05-27 14:54:09 UTC",
-               updated_at: "2012-05-27 14:54:09 UTC"
+               created_at: "2012-03-27 14:54:09 UTC",
+               updated_at: "2012-03-27 14:54:09 UTC"
              }
   end
 
@@ -97,6 +97,42 @@ class CustomerRepositoryTest < Minitest::Test
     load_test_data
     results = customer_repository.find_all_by_first_name("Joey")
     assert_equal "Landers", results.last.last_name
+  end
+
+  def test_find_by_last_name
+    load_test_data
+    results = customer_repository.find_by_last_name("Ondricka")
+    assert_equal "Joey", results.first_name
+  end
+
+  def test_find_all_by_last_name
+    load_test_data
+    results = customer_repository.find_all_by_last_name("Ondricka")
+    assert_equal "Mary", results.last.first_name
+  end
+
+  def test_find_by_created_at
+    load_test_data
+    results = customer_repository.find_by_created_at("2012-03-27 14:54:09 UTC")
+    assert_equal "Joey", results.first_name
+  end
+
+  def test_find_all_by_created_at
+    load_test_data
+    results = customer_repository.find_all_by_created_at("2012-03-27 14:54:09 UTC")
+    assert_equal "Mary", results.last.first_name
+  end
+
+  def test_find_by_updated_at
+    load_test_data
+    results = customer_repository.find_by_updated_at("2012-03-27 14:54:09 UTC")
+    assert_equal "Ondricka", results.last_name
+  end
+
+  def test_find_all_by_updated_at
+    load_test_data
+    results = customer_repository.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
+    assert_equal "Mary", results.last.first_name
   end
 
 end
