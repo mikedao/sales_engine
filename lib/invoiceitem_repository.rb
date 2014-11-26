@@ -1,3 +1,5 @@
+require 'csv'
+
 class InvoiceItemRepository
   attr_reader   :data
   def initialize
@@ -6,6 +8,12 @@ class InvoiceItemRepository
 
   def <<(data)
     @data << InvoiceItem.new(data, self)
+  end
+
+  def csv_loader(path = '../data/invoice_items.csv')
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
+      @data << InvoiceItem.new(data,self)
+    end
   end
 
   def all
