@@ -1,3 +1,5 @@
+require_relative 'merchant'
+
 class MerchantRepository
   attr_reader :data
 
@@ -6,7 +8,7 @@ class MerchantRepository
   end
 
   def <<(data)
-    @data << data
+    @data << Merchant.new(data, self)
   end
 
   def all

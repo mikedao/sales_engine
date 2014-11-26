@@ -24,11 +24,18 @@ class MerchantRepositoryTest < Minitest::Test
              }
   end
 
+
   def load_test_data
     @merchant_repository = MerchantRepository.new
-    merchant_repository << Merchant.new(data1)
-    merchant_repository << Merchant.new(data2)
-    merchant_repository << Merchant.new(data3)
+    merchant_repository << data1
+    merchant_repository << data2
+    merchant_repository << data3
+  end
+
+  def test_it_knows_its_parent
+    mr = MerchantRepository.new
+    mr << data1
+    assert_equal mr, mr.data.first.repository
   end
 
   def test_it_starts_empty
