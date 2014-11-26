@@ -21,27 +21,27 @@ class InvoiceItemTest < Minitest::Test
 
   def test_has_an_id
     invoiceitem = InvoiceItem.new(data, nil)
-    assert_equal 1, invoiceitem.id
+    assert_equal "1", invoiceitem.id
   end
 
   def test_has_an_item_id
     invoiceitem = InvoiceItem.new(data, nil)
-    assert_equal 539, invoiceitem.item_id
+    assert_equal "539", invoiceitem.item_id
   end
 
   def test_has_an_invoice_id
     invoiceitem = InvoiceItem.new(data, nil)
-    assert_equal 1, invoiceitem.invoice_id
+    assert_equal "1", invoiceitem.invoice_id
   end
 
   def test_has_a_quantity
     invoiceitem = InvoiceItem.new(data, nil)
-    assert_equal 5, invoiceitem.quantity
+    assert_equal "5", invoiceitem.quantity
   end
 
   def test_has_a_unit_price
     invoiceitem = InvoiceItem.new(data, nil)
-    assert_equal 13635, invoiceitem.unit_price
+    assert_equal "13635", invoiceitem.unit_price
   end
 
   def test_has_a_created_at
