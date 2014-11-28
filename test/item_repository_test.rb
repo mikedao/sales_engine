@@ -41,20 +41,20 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def load_test_data
-    @item_repository = ItemRepository.new
+    @item_repository = ItemRepository.new(nil)
     item_repository << data1
     item_repository << data2
     item_repository << data3
   end
 
   def test_it_knows_its_parent
-    ir = ItemRepository.new
+    ir = ItemRepository.new(nil)
     ir << data1
     assert_equal ir, ir.data.first.repository
   end
 
   def test_it_loads_csv_file
-    ir = ItemRepository.new
+    ir = ItemRepository.new(nil)
     assert ir.data.empty?
     ir.csv_loader('./test/fixtures/items_test.csv')
     refute ir.data.empty?
@@ -63,7 +63,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_starts_empty
-    item_repository = ItemRepository.new
+    item_repository = ItemRepository.new(nil)
     assert item_repository.data.empty?
   end
 
@@ -189,6 +189,17 @@ class ItemRepositoryTest < Minitest::Test
     result = item_repository.find_all_by_updated_at("2012-03-28 14:53:59 UTC")
     assert_equal 2, result.size
     assert_equal "7", result.last.id
+  end
+
+  def test_it_calls_se_to_find_invoice_items_by_item_id
+    parent = Minitest::Mock.new
+    ir = ItemRepository.new(parent)
+    ir << data1
+    ir << data2
+    ir << data3
+    parent.expect(:find_invoice_items_by_item_id, nil, ["1"])
+    ir.find_invoice_items(ir.data.first.id)
+    parent.verify
   end
 
 end
