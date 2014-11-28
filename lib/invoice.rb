@@ -17,4 +17,8 @@ class Invoice
     @repository  = parent
   end
 
+  def transactions
+    repository.find_transactions(id)
+  end
+  
 end

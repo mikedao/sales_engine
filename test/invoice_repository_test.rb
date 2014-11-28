@@ -38,14 +38,14 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def load_data
-    @invoice_repository = InvoiceRepository.new
+    @invoice_repository = InvoiceRepository.new(nil)
     invoice_repository << data1
     invoice_repository << data2
     invoice_repository << data3
   end
 
   def test_it_loads_csv_file
-    ir = InvoiceRepository.new
+    ir = InvoiceRepository.new(nil)
     assert ir.data.empty?
     ir.csv_loader('./test/fixtures/invoices_test.csv')
     refute ir.data.empty?
@@ -55,7 +55,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
 
   def test_it_starts_empty
-    invoice_repository = InvoiceRepository.new
+    invoice_repository = InvoiceRepository.new(nil)
     assert invoice_repository.data.empty?
   end
 
@@ -65,7 +65,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_invoice_knows_its_parent
-    ir = InvoiceRepository.new
+    ir = InvoiceRepository.new(nil)
     ir << data1
     assert_equal ir, ir.data.first.repository
   end
@@ -178,6 +178,17 @@ class InvoiceRepositoryTest < Minitest::Test
     e1, e2 = result
     assert_equal "1", e1.id
     assert_equal "3", e2.id
+  end
+
+  def test_find_transactions_calls_sales_engine
+    parent = Minitest::Mock.new
+    ir = InvoiceRepository.new(parent)
+    ir << data1
+    ir << data2
+    ir << data3
+    parent.expect(:find_transactions_by_invoice_id, nil, ["1"])
+    ir.find_transactions(ir.data.first.id)
+    parent.verify
   end
 
 end
