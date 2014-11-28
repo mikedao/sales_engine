@@ -37,15 +37,13 @@ class SalesEngine
     invoicerepository.find_all_by_merchant_id(id)
   end
 
-<<<<<<< HEAD
+
   def find_invoices_by_customer_id(id)
     invoicerepository.find_all_by_customer_id(id)
   end
-=======
+
   def find_transactions_by_invoice_id(id)
     transactionrepository.find_all_by_invoice_id(id)
   end
-
->>>>>>> master
 
 end

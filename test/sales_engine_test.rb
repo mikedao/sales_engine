@@ -59,6 +59,8 @@ class SalesEngineTest < Minitest::Test
       refute se.find_invoices_by_customer_id("7").empty?
       assert_equal "86", se.find_invoices_by_customer_id("3")[0].merchant_id
       assert_equal 4, se.find_invoices_by_customer_id("3").size
+    end
+    
 
     def test_find_transactions_by_invoice_id
       refute se.find_transactions_by_invoice_id("4").empty?
