@@ -52,4 +52,11 @@ class TransactionTest < Minitest::Test
     assert_equal "2012-03-27 14:54:09 UTC", transaction.updated_at
   end
 
+  def test_invoice_calls_parent
+    parent = Minitest::Mock.new
+    transaction = Transaction.new(data, parent)
+    parent.expect(:find_invoice, nil, ["1"])
+    transaction.invoice
+    parent.verify
+  end
 end
