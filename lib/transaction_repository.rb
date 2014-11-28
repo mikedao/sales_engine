@@ -3,11 +3,12 @@ require_relative 'transaction'
 
 
 class TransactionRepository
-  attr_reader :data
+  attr_reader :data, :sales_engine
 
 
-  def initialize
+  def initialize(parent)
     @data = []
+    @sales_engine = parent
   end
 
   def csv_loader(path = 'data/transactions.csv')
@@ -98,4 +99,7 @@ class TransactionRepository
     end
   end
 
+  def find_invoice(id)
+    sales_engine.find_invoice_by_transaction_id(id)
+  end
 end

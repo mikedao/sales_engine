@@ -19,7 +19,7 @@ class SalesEngine
     @invoiceitemrepository  = InvoiceItemRepository.new
     @itemrepository         = ItemRepository.new
     @merchantrepository     = MerchantRepository.new(self)
-    @transactionrepository  = TransactionRepository.new
+    @transactionrepository  = TransactionRepository.new(self)
 
     customerrepository.csv_loader
     invoicerepository.csv_loader
