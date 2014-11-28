@@ -53,6 +53,15 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal ir, ir.data.first.repository
   end
 
+  def test_it_loads_csv_file
+    ir = ItemRepository.new
+    assert ir.data.empty?
+    ir.csv_loader('./test/fixtures/items_test.csv')
+    refute ir.data.empty?
+    assert_equal 10, ir.data.count
+    assert_equal "31163", ir.data[6].unit_price
+  end
+
   def test_it_starts_empty
     item_repository = ItemRepository.new
     assert item_repository.data.empty?
@@ -70,7 +79,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_access_individual_items
     load_test_data
-    assert_equal 22222, item_repository.data[2].unit_price
+    assert_equal "22222", item_repository.data[2].unit_price
   end
 
   def test_all_method_returns_all_items
@@ -97,26 +106,26 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_by_id
     load_test_data
-    result = item_repository.find_by_id(2)
+    result = item_repository.find_by_id("2")
     assert_equal "Apple Pie", result.name
   end
 
   def test_find_all_by_id
     load_test_data
-    result = item_repository.find_all_by_id(7)
+    result = item_repository.find_all_by_id("7")
     assert_equal "Turkey", result.first.name
   end
 
   def test_find_by_name
     load_test_data
     result = item_repository.find_by_name("Turkey")
-    assert_equal 7, result.id
+    assert_equal "7", result.id
   end
 
   def test_find_all_by_name
     load_test_data
     result = item_repository.find_all_by_name("Skateboard")
-    assert_equal 1, result.first.id
+    assert_equal "1", result.first.id
   end
 
   def test_find_by_description
@@ -133,25 +142,25 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_by_unit_price
     load_test_data
-    result = item_repository.find_by_unit_price(75107)
+    result = item_repository.find_by_unit_price("75107")
     assert_equal "Skateboard", result.name
   end
 
   def test_find_all_by_unit_price
     load_test_data
-    result = item_repository.find_all_by_unit_price(22222)
+    result = item_repository.find_all_by_unit_price("22222")
     assert_equal "Food", result.last.description
   end
 
   def test_find_by_merchant_id
     load_test_data
-    result = item_repository.find_by_merchant_id(2)
+    result = item_repository.find_by_merchant_id("2")
     assert_equal "Nums", result.description
   end
 
   def test_find_all_merchant_id
     load_test_data
-    result = item_repository.find_all_by_merchant_id(2)
+    result = item_repository.find_all_by_merchant_id("2")
     assert_equal 2, result.size
     assert_equal "Turkey", result.last.name
   end
@@ -179,7 +188,7 @@ class ItemRepositoryTest < Minitest::Test
     load_test_data
     result = item_repository.find_all_by_updated_at("2012-03-28 14:53:59 UTC")
     assert_equal 2, result.size
-    assert_equal 7, result.last.id
+    assert_equal "7", result.last.id
   end
 
 end

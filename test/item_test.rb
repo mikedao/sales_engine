@@ -20,7 +20,7 @@ class ItemTest < Minitest::Test
 
   def test_it_has_an_id
     item = Item.new(data, nil)
-    assert_equal 1, item.id
+    assert_equal "1", item.id
   end
 
   def test_it_has_a_name
@@ -35,12 +35,12 @@ class ItemTest < Minitest::Test
 
   def test_it_has_an_unit_price
     item = Item.new(data, nil)
-    assert_equal 75107, item.unit_price
+    assert_equal "75107", item.unit_price
   end
 
   def test_it_has_an_merchant_id
     item = Item.new(data, nil)
-    assert_equal 1, item.merchant_id
+    assert_equal "1", item.merchant_id
   end
 
   def test_it_has_a_created_at_date
