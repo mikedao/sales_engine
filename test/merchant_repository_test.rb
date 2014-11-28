@@ -4,6 +4,7 @@ require_relative 'test_helper'
 
 class MerchantRepositoryTest < Minitest::Test
   attr_reader :data1, :data2, :data3, :merchant_repository
+
   def setup
     @data1 = { id: "1",
                name: "Schroeder-Jerde",

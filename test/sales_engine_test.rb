@@ -79,4 +79,9 @@ class SalesEngineTest < Minitest::Test
       assert_equal "Joey", se.find_customer_by_id("1")[0].first_name
       assert_equal 1, se.find_customer_by_id("4").size
     end
+
+    def test_find_invoice_items_by_item_id
+      refute se.find_invoice_items_by_item_id("1").empty?
+      assert_equal "3", se.find_invoice_items_by_item_id("535")[0].quantity
+    end
 end
