@@ -2,10 +2,12 @@ require 'csv'
 require_relative 'invoice'
 
 class InvoiceRepository
-  attr_reader   :data
+  attr_reader   :data,
+                :sales_engine
 
-  def initialize
+  def initialize(parent)
     @data = []
+    @sales_engine = parent
   end
 
   def csv_loader(path = './data/invoices.csv')
@@ -97,5 +99,9 @@ class InvoiceRepository
     @data.find_all do |datum|
       datum.updated_at == criteria
     end
+  end
+
+  def find_transactions(id)
+    sales_engine.find_transactions_by_invoice_id(id)
   end
 end

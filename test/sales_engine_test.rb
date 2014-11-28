@@ -55,6 +55,11 @@ class SalesEngineTest < Minitest::Test
       assert_equal 43, se.find_invoices_by_merchant_id("3").size
     end
 
+    def test_find_transactions_by_invoice_id
+      refute se.find_transactions_by_invoice_id("4").empty?
+      assert_equal "4354495077693036", se.find_transactions_by_invoice_id("4")[0].credit_card_number
+      assert_equal 1, se.find_transactions_by_invoice_id("4").size
 
+    end
 
 end
