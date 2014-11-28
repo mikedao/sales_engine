@@ -213,4 +213,16 @@ class InvoiceRepositoryTest < Minitest::Test
     parent.verify
   end
 
+  def test_find_merchant_calls_sales_engine
+    parent = Minitest::Mock.new
+    ir = InvoiceRepository.new(parent)
+    ir << data1
+    ir << data2
+    ir << data3
+    parent.expect(:find_merchant_by_id, nil, ["26"])
+    ir.find_merchant(ir.data.first.merchant_id)
+    parent.verify
+  end
+
+
 end
