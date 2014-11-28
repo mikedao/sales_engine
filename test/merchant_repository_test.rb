@@ -91,13 +91,13 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_find_by_id
     load_test_data
-    result = merchant_repository.find_by_id(2)
+    result = merchant_repository.find_by_id("2")
     assert_equal "Sear", result.name
   end
 
   def test_find_all_by_id
     load_test_data
-    result = merchant_repository.find_all_by_id(2)
+    result = merchant_repository.find_all_by_id("2")
     assert_equal "Sear", result.first.name
   end
 
@@ -144,7 +144,18 @@ class MerchantRepositoryTest < Minitest::Test
     mr << data2
     mr << data3
     parent.expect(:find_items_by_merchant_id, nil, ["1"])
-    mr.find_items("1")
+    mr.find_items(mr.data.first.id)
+    parent.verify
+  end
+
+  def test_it_calls_se_to_find_invoices_by_merchant_id
+    parent = Minitest::Mock.new
+    mr = MerchantRepository.new(parent)
+    mr << data1
+    mr << data2
+    mr << data3
+    parent.expect(:find_invoices_by_merchant_id, nil, ["1"])
+    mr.find_invoices(mr.data.first.id)
     parent.verify
   end
 
