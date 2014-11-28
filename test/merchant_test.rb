@@ -17,7 +17,7 @@ class MerchantTest < Minitest::Test
 
   def test_it_has_an_id
     merchant = Merchant.new(data, nil)
-    assert_equal 1, merchant.id
+    assert_equal "1", merchant.id
   end
 
   def test_it_has_a_name
@@ -34,5 +34,14 @@ class MerchantTest < Minitest::Test
     merchant = Merchant.new(data, nil)
     assert_equal "2012-03-27 14:53:59 UTC", merchant.updated_at
   end
+
+  def test_items_calls_parent
+    parent = Minitest::Mock.new
+    merchant = Merchant.new(data, parent)
+    parent.expect(:find_items, nil, ["1"])
+    merchant.items
+    parent.verify
+  end
+
 
 end

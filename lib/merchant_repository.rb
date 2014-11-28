@@ -2,10 +2,12 @@ require 'csv'
 require_relative 'merchant'
 
 class MerchantRepository
-  attr_reader :data
+  attr_reader :data,
+              :sales_engine
 
-  def initialize
+  def initialize(parent)
     @data = []
+    @sales_engine = parent
   end
 
   def csv_loader(path = 'data/merchants.csv')
@@ -69,5 +71,10 @@ class MerchantRepository
       datum.send(attribute) == criteria
     end
   end
+
+  def find_items(id)
+    sales_engine.find_items_by_merchant_id(id)
+  end
+
 
 end
