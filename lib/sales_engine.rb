@@ -14,7 +14,7 @@ class SalesEngine
               :transactionrepository
 
   def startup
-    @customerrepository     = CustomerRepository.new
+    @customerrepository     = CustomerRepository.new(self)
     @invoicerepository      = InvoiceRepository.new
     @invoiceitemrepository  = InvoiceItemRepository.new
     @itemrepository         = ItemRepository.new
@@ -36,5 +36,9 @@ class SalesEngine
   def find_invoices_by_merchant_id(id)
     invoicerepository.find_all_by_merchant_id(id)
   end
-  
+
+  def find_invoices_by_customer_id(id)
+    invoicerepository.find_all_by_customer_id(id)
+  end
+
 end

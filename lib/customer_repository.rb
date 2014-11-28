@@ -2,10 +2,12 @@ require 'csv'
 require_relative 'customer'
 
 class CustomerRepository
-  attr_reader :data
+  attr_reader :data,
+              :sales_engine
 
-  def initialize
+  def initialize(parent)
     @data = []
+    @sales_engine = parent
   end
 
   def csv_loader(path = 'data/customers.csv')
@@ -79,5 +81,8 @@ class CustomerRepository
     end
   end
 
+  def find_invoices(id)
+    sales_engine.find_invoices_by_customer_id(id)
+  end
 
 end
