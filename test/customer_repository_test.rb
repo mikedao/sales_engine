@@ -32,14 +32,14 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def load_test_data
-    @customer_repository = CustomerRepository.new
+    @customer_repository = CustomerRepository.new(nil)
     customer_repository << data1
     customer_repository << data2
     customer_repository << data3
   end
 
   def test_it_loads_csv_file
-    cr = CustomerRepository.new
+    cr = CustomerRepository.new(nil)
     assert cr.data.empty?
     cr.csv_loader('./test/fixtures/customers_test.csv')
     refute cr.data.empty?
@@ -48,12 +48,12 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_starts_empty
-    customer_repository = CustomerRepository.new
+    customer_repository = CustomerRepository.new(nil)
     assert customer_repository.data.empty?
   end
 
   def test_it_knows_its_parents
-    cr = CustomerRepository.new
+    cr = CustomerRepository.new(nil)
     cr << data1
     assert_equal cr, cr.data.first.repository
   end
@@ -69,7 +69,7 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_all_returns_empty_when_no_data_loaded
-    customer_repository = CustomerRepository.new
+    customer_repository = CustomerRepository.new(nil)
     assert customer_repository.all.empty?
   end
 
@@ -147,6 +147,17 @@ class CustomerRepositoryTest < Minitest::Test
     load_test_data
     results = customer_repository.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
     assert_equal "Mary", results.last.first_name
+  end
+
+  def test_it_calls_se_to_find_invoices_by_merchant_id
+    parent = Minitest::Mock.new
+    cr = CustomerRepository.new(parent)
+    cr << data1
+    cr << data2
+    cr << data3
+    parent.expect(:find_invoices_by_customer_id, nil, ["1"])
+    cr.find_invoices(cr.data.first.id)
+    parent.verify
   end
 
 end
