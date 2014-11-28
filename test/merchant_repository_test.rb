@@ -26,14 +26,14 @@ class MerchantRepositoryTest < Minitest::Test
 
 
   def load_test_data
-    @merchant_repository = MerchantRepository.new
+    @merchant_repository = MerchantRepository.new(nil)
     merchant_repository << data1
     merchant_repository << data2
     merchant_repository << data3
   end
 
   def test_it_loads_csv_file
-    mr = MerchantRepository.new
+    mr = MerchantRepository.new(nil)
     assert mr.data.empty?
     mr.csv_loader('./test/fixtures/merchants_test.csv')
     refute mr.data.empty?
@@ -42,13 +42,13 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_knows_its_parent
-    mr = MerchantRepository.new
+    mr = MerchantRepository.new(nil)
     mr << data1
     assert_equal mr, mr.data.first.repository
   end
 
   def test_it_starts_empty
-    merchant_repository = MerchantRepository.new
+    merchant_repository = MerchantRepository.new(nil)
     assert merchant_repository.data.empty?
   end
 
@@ -136,4 +136,16 @@ class MerchantRepositoryTest < Minitest::Test
     result = merchant_repository.find_all_by_updated_at("2013-03-27 14:53:59 UTC")
     assert_equal "McDonalds", result.last.name
   end
+
+  def test_it_calls_se_to_find_items_by_merchant_id
+    parent = Minitest::Mock.new
+    mr = MerchantRepository.new(parent)
+    mr << data1
+    mr << data2
+    mr << data3
+    parent.expect(:find_items_by_merchant_id, nil, ["1"])
+    mr.find_items("1")
+    parent.verify
+  end
+
 end

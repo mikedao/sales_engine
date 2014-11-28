@@ -18,7 +18,7 @@ class SalesEngine
     @invoicerepository      = InvoiceRepository.new
     @invoiceitemrepository  = InvoiceItemRepository.new
     @itemrepository         = ItemRepository.new
-    @merchantrepository     = MerchantRepository.new
+    @merchantrepository     = MerchantRepository.new(self)
     @transactionrepository  = TransactionRepository.new
 
     customerrepository.csv_loader
@@ -27,6 +27,9 @@ class SalesEngine
     itemrepository.csv_loader
     merchantrepository.csv_loader
     transactionrepository.csv_loader
+  end
 
+  def find_items_by_merchant_id(id)
+    itemrepository.find_all_by_merchant_id(id)
   end
 end

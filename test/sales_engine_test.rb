@@ -43,6 +43,14 @@ class SalesEngineTest < Minitest::Test
       assert se.transactionrepository.data[0].is_a?(Transaction)
     end
 
+    def test_find_items_by_merchant_id
+      refute se.find_items_by_merchant_id("3").empty?
+      assert_equal "77596", se.find_items_by_merchant_id("3")[0].unit_price
+      assert 26, se.find_items_by_merchant_id("3").size
+
+    end
+
+
 
 
 end
