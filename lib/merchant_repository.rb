@@ -1,3 +1,4 @@
+require 'csv'
 require_relative 'merchant'
 
 class MerchantRepository
@@ -5,6 +6,12 @@ class MerchantRepository
 
   def initialize
     @data = []
+  end
+
+  def csv_loader(path = '../data/merchants.csv')
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
+      @data << Merchant.new(data, self)
+    end
   end
 
   def <<(data)
