@@ -1,4 +1,4 @@
-require 'CSV'
+require 'csv'
 require_relative 'transaction'
 
 
@@ -10,12 +10,12 @@ class TransactionRepository
     @data = []
   end
 
-  def csv_loader(path = '../data/transactions.csv')
+  def csv_loader(path = 'data/transactions.csv')
     CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
       @data << Transaction.new(data, self)
     end
   end
-  
+
   def <<(data)
     @data << Transaction.new(data, self)
   end
