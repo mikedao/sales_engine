@@ -46,10 +46,14 @@ class SalesEngineTest < Minitest::Test
     def test_find_items_by_merchant_id
       refute se.find_items_by_merchant_id("3").empty?
       assert_equal "77596", se.find_items_by_merchant_id("3")[0].unit_price
-      assert 26, se.find_items_by_merchant_id("3").size
-
+      assert_equal 26, se.find_items_by_merchant_id("3").size
     end
 
+    def test_find_invoices_by_merchant_id
+      refute se.find_invoices_by_merchant_id("3").empty?
+      assert_equal "17", se.find_invoices_by_merchant_id("3")[0].customer_id
+      assert_equal 43, se.find_invoices_by_merchant_id("3").size
+    end
 
 
 
