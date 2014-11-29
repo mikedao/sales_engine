@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/customer'
+require_relative '../lib/sales_engine'
 
 class CustomerTest < Minitest::Test
   attr_reader :data
@@ -45,5 +46,14 @@ class CustomerTest < Minitest::Test
     parent.expect(:find_invoices, nil, ["1"])
     customer.invoices
     parent.verify
+  end
+
+  def test_transactions
+    se = SalesEngine.new
+    se.startup
+    assert_equal 7, se.customerrepository.data[0].transactions.size
+    assert se.customerrepository.data[0].transactions.is_a?(Array)
+    assert se.customerrepository.data[0].transactions[0].is_a?(Transaction)
+    assert_equal "4580251236515201", se.customerrepository.data[0].transactions[1].credit_card_number
   end
 end

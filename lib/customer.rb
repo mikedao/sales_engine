@@ -18,5 +18,11 @@ class Customer
   def invoices
     repository.find_invoices(id)
   end
-  
+
+  def transactions
+    invoices.map do |invoice|
+      invoice.transactions
+    end.flatten
+  end
+
 end
