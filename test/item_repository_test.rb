@@ -9,35 +9,35 @@ class ItemRepositoryTest < Minitest::Test
                 :item_repository
 
   def setup
-    @data1 = {
-      id: "1",
-      name: "Skateboard",
-      description: "Transportation device",
-      unit_price: "75107",
-      merchant_id: "1",
-      created_at: "2012-03-27 14:53:59 UTC",
-      updated_at: "2012-03-27 14:53:59 UTC"
-    }
+    @data1 =  {
+                id: "1",
+                name: "Skateboard",
+                description: "Transportation device",
+                unit_price: "75107",
+                merchant_id: "1",
+                created_at: "2012-03-27 14:53:59 UTC",
+                updated_at: "2012-03-27 14:53:59 UTC"
+              }
 
-    @data2 = {
-      id: "2",
-      name: "Apple Pie",
-      description: "Nums",
-      unit_price: "11111",
-      merchant_id: "2",
-      created_at: "2012-03-27 14:53:59 UTC",
-      updated_at: "2012-03-28 14:53:59 UTC"
-    }
+    @data2 =  {
+                id: "2",
+                name: "Apple Pie",
+                description: "Nums",
+                unit_price: "11111",
+                merchant_id: "2",
+                created_at: "2012-03-27 14:53:59 UTC",
+                updated_at: "2012-03-28 14:53:59 UTC"
+              }
 
-    @data3 = {
-      id: "7",
-      name: "Turkey",
-      description: "Food",
-      unit_price: "22222",
-      merchant_id: "2",
-      created_at: "2012-03-29 14:53:59 UTC",
-      updated_at: "2012-03-28 14:53:59 UTC"
-    }
+    @data3 =  {
+                id: "7",
+                name: "Turkey",
+                description: "Food",
+                unit_price: "22222",
+                merchant_id: "2",
+                created_at: "2012-03-29 14:53:59 UTC",
+                updated_at: "2012-03-28 14:53:59 UTC"
+              }
   end
 
   def load_test_data

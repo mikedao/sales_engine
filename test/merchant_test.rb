@@ -3,8 +3,7 @@ require_relative '../lib/merchant'
 
 class MerchantTest < Minitest::Test
   attr_accessor :data
-  #id,name,created_at,updated_at
-  #1,Schroeder-Jerde,2012-03-27 14:53:59 UTC,2012-03-27 14:53:59 UTC
+  
   def setup
     @data = { id: "1",
               name: "Schroeder-Jerde",

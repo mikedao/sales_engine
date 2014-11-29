@@ -3,28 +3,33 @@ require_relative '../lib/merchant'
 require_relative 'test_helper'
 
 class MerchantRepositoryTest < Minitest::Test
-  attr_reader :data1, :data2, :data3, :merchant_repository
+  attr_reader :data1,
+              :data2,
+              :data3,
+              :merchant_repository
 
   def setup
-    @data1 = { id: "1",
-               name: "Schroeder-Jerde",
-               created_at: "2012-03-27 14:53:59 UTC",
-               updated_at: "2012-03-27 14:53:59 UTC"
-             }
+    @data1 =  {
+                id: "1",
+                name: "Schroeder-Jerde",
+                created_at: "2012-03-27 14:53:59 UTC",
+                updated_at: "2012-03-27 14:53:59 UTC"
+              }
 
-    @data2 = { id: "2",
-               name: "Sear",
-               created_at: "2013-03-27 14:53:59 UTC",
-               updated_at: "2013-03-27 14:53:59 UTC"
-             }
+    @data2 =  {
+                id: "2",
+                name: "Sear",
+                created_at: "2013-03-27 14:53:59 UTC",
+                updated_at: "2013-03-27 14:53:59 UTC"
+              }
 
-    @data3 = { id: "3",
-               name: "McDonalds",
-               created_at: "2013-03-27 14:53:59 UTC",
-               updated_at: "2013-03-27 14:53:59 UTC"
-             }
+    @data3 =  {
+                id: "3",
+                name: "McDonalds",
+                created_at: "2013-03-27 14:53:59 UTC",
+                updated_at: "2013-03-27 14:53:59 UTC"
+              }
   end
-
 
   def load_test_data
     @merchant_repository = MerchantRepository.new(nil)

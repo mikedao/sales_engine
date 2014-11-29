@@ -1,10 +1,9 @@
 require 'csv'
 require_relative 'transaction'
 
-
 class TransactionRepository
-  attr_reader :data, :sales_engine
-
+  attr_reader :data,
+              :sales_engine
 
   def initialize(parent)
     @data = []
@@ -85,8 +84,6 @@ class TransactionRepository
     finder_all_by(:updated_at, criteria)
   end
 
-
-
   def finder_by(attribute, criteria)
     @data.find do |datum|
       datum.send(attribute) == criteria
@@ -100,6 +97,6 @@ class TransactionRepository
   end
 
   def find_invoice(id)
-    sales_engine.find_invoice_by_transaction_id(id)
+    sales_engine.find_invoice_by_id(id)
   end
 end

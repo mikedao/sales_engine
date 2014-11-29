@@ -2,8 +2,6 @@ require_relative 'test_helper'
 require_relative '../lib/item'
 
 class ItemTest < Minitest::Test
-# id,name,description,unit_price,merchant_id,created_at,updated_at
-# 1,Item Qui Esse,Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.,75107,1,2012-03-27 14:53:59 UTC,2012-03-27 14:53:59 UTC
   attr_reader :data
 
   def setup
@@ -68,5 +66,5 @@ class ItemTest < Minitest::Test
     item.merchant
     parent.verify
   end
-  
+
 end

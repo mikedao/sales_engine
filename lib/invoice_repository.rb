@@ -6,7 +6,7 @@ class InvoiceRepository
                 :sales_engine
 
   def initialize(parent)
-    @data = []
+    @data         = []
     @sales_engine = parent
   end
 
@@ -15,7 +15,6 @@ class InvoiceRepository
       @data << Invoice.new(data, self)
     end
   end
-
 
   def <<(data)
     @data << Invoice.new(data,self)
@@ -117,5 +116,4 @@ class InvoiceRepository
     sales_engine.find_merchant_by_id(id)
   end
   
-
 end

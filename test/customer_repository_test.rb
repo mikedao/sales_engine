@@ -9,26 +9,29 @@ class CustomerRepositoryTest < Minitest::Test
               :customer_repository
 
   def setup
-    @data1 = { id:         "1",
-               first_name: "Joey",
-               last_name:  "Ondricka",
-               created_at: "2012-03-27 14:54:09 UTC",
-               updated_at: "2012-03-27 14:54:09 UTC"
-             }
+    @data1 =  {
+                id:         "1",
+                first_name: "Joey",
+                last_name:  "Ondricka",
+                created_at: "2012-03-27 14:54:09 UTC",
+                updated_at: "2012-03-27 14:54:09 UTC"
+              }
 
-    @data2 = { id:         "2",
-               first_name: "Joey",
-               last_name:  "Landers",
-               created_at: "2012-04-27 14:54:09 UTC",
-               updated_at: "2012-04-27 14:54:09 UTC"
-             }
+    @data2 =  {
+                id:         "2",
+                first_name: "Joey",
+                last_name:  "Landers",
+                created_at: "2012-04-27 14:54:09 UTC",
+                updated_at: "2012-04-27 14:54:09 UTC"
+              }
 
-    @data3 = { id:         "3",
-               first_name: "Mary",
-               last_name:  "Ondricka",
-               created_at: "2012-03-27 14:54:09 UTC",
-               updated_at: "2012-03-27 14:54:09 UTC"
-             }
+    @data3 =  {
+                id:         "3",
+                first_name: "Mary",
+                last_name:  "Ondricka",
+                created_at: "2012-03-27 14:54:09 UTC",
+                updated_at: "2012-03-27 14:54:09 UTC"
+              }
   end
 
   def load_test_data
