@@ -36,7 +36,7 @@ class Invoice
   def items
     invoice_items.map do |invoice_item|
       invoice_item.item
-    end
+    end.flatten
   end
 
 end
