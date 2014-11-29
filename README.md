@@ -1,13 +1,13 @@
 [![Stories in Ready](https://badge.waffle.io/mikedao/sales_engine.png?label=ready&title=Ready)](https://waffle.io/mikedao/sales_engine)
 # Sales Engine
 
-Phase 1: Loading data and put data in Repositories
+Phase 1: Loading data and put data in Repositories - COMPLETE
 
-Phase 2: Listing and searching functionality
+Phase 2: Listing and searching functionality - COMPLETE
 
-Phase 3: Relationships
+Phase 3: Relationships - IN PROGRESS
 
-Phase 4: Business Logic
+Phase 4: Business Intelligence
 
 Phase 5: Refactoring
 
