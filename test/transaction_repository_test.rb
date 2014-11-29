@@ -127,9 +127,9 @@ class TransactionsRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_credit_card_number
-    skip
     load_test_data
-    result = transaction_repository.find_by_credit_card_number("4654405418242222")
+    result = transaction_repository.find_all_by_credit_card_number("4654405418242222")
+
     assert_equal "2", result.last.invoice_id
   end
 
@@ -140,9 +140,8 @@ class TransactionsRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_credit_card_expiration_date
-    skip
     load_test_data
-    result = transaction_repository.find_by_credit_card_expiration_date("")
+    result = transaction_repository.find_all_by_credit_card_expiration_date("")
     assert_equal "3", result.last.id
   end
 
