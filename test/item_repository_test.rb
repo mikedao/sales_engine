@@ -202,4 +202,14 @@ class ItemRepositoryTest < Minitest::Test
     parent.verify
   end
 
+  def test_find_merchant_calls_se
+    parent = Minitest::Mock.new
+    ir = ItemRepository.new(parent)
+    ir << data1
+    ir << data2
+    ir << data3
+    parent.expect(:find_merchant_by_id, nil, ["1"])
+    ir.find_merchant(ir.data.first.id)
+  end
+
 end
