@@ -94,4 +94,9 @@ class SalesEngineTest < Minitest::Test
       refute se.find_invoice_by_id("26").empty?
       assert_equal "7", se.find_invoice_by_id("26")[0].customer_id
     end
+
+    def test_find_item_by_id
+      refute se.find_item_by_id("26").nil?
+      assert_equal "Item Non Deserunt", se.find_item_by_id("26").name
+    end
 end

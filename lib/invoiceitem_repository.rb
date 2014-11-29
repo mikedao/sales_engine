@@ -99,4 +99,9 @@ class InvoiceItemRepository
   def find_invoice(id)
     sales_engine.find_invoice_by_id(id)
   end
+
+  def find_item(id)
+    sales_engine.find_item_by_id(id)
+  end
+  
 end
