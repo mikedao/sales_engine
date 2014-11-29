@@ -58,4 +58,10 @@ class MerchantTest < Minitest::Test
     assert_equal 1281794, se.merchantrepository.data[0].revenue("2012-03-25 13:54:11 UTC")
   end
 
+  def test_favorite_customer
+    se = SalesEngine.new
+    se.startup
+    assert_equal 63, se.merchantrepository.data[3].transactions.size
+    assert_equal 'Kuhn', se.merchantrepository.data[50].favorite_customer.last_name
+  end
 end
