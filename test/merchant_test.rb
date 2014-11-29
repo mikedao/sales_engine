@@ -1,9 +1,10 @@
 require_relative 'test_helper'
 require_relative '../lib/merchant'
+require_relative '../lib/sales_engine'
 
 class MerchantTest < Minitest::Test
   attr_accessor :data
-  
+
   def setup
     @data = { id: "1",
               name: "Schroeder-Jerde",
@@ -48,6 +49,12 @@ class MerchantTest < Minitest::Test
     parent.expect(:find_invoices, nil, ["1"])
     merchant.invoices
     parent.verify
+  end
+
+  def test_revenue
+    se = SalesEngine.new
+    se.startup
+    assert_equal 33805554, se.merchantrepository.data[2].revenue
   end
 
 end
