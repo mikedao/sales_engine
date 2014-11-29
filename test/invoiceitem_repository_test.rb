@@ -205,5 +205,16 @@ class InvoiceItemRepositoryTest < Minitest::Test
     iir.find_invoice(iir.data.first.invoice_id)
   end
 
+  def test_find_item_calls_sales_engine
+    parent = Minitest::Mock.new
+    iir = InvoiceItemRepository.new(parent)
+    iir << data1
+    iir << data2
+    iir << data3
+    parent.expect(:find_item_by_id, nil, ["539"])
+    iir.find_item(iir.data.first.item_id)
+  end
+
+
 
 end
