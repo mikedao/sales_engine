@@ -9,32 +9,32 @@ class InvoiceRepositoryTest < Minitest::Test
                 :invoice_repository
 
   def setup
-    @data1 = {
-      id:          "1",
-      customer_id: "2",
-      merchant_id: "26",
-      status:      "failed",
-      created_at:  "2012-03-25 09:54:09 UTC",
-      updated_at:  "2012-03-25 09:54:09 UTC"
-    }
+    @data1 =  {
+                id:          "1",
+                customer_id: "2",
+                merchant_id: "26",
+                status:      "failed",
+                created_at:  "2012-03-25 09:54:09 UTC",
+                updated_at:  "2012-03-25 09:54:09 UTC"
+              }
 
-    @data2 = {
-      id:          "2",
-      customer_id: "2",
-      merchant_id: "29",
-      status:      "shipped",
-      created_at:  "2013-03-25 12:54:12 UTC",
-      updated_at:  "2013-03-25 12:54:12 UTC"
-    }
+    @data2 =  {
+                id:          "2",
+                customer_id: "2",
+                merchant_id: "29",
+                status:      "shipped",
+                created_at:  "2013-03-25 12:54:12 UTC",
+                updated_at:  "2013-03-25 12:54:12 UTC"
+              }
 
-    @data3 = {
-      id:          "3",
-      customer_id: "4",
-      merchant_id: "26",
-      status:      "shipped",
-      created_at:  "2012-03-25 09:54:09 UTC",
-      updated_at:  "2012-03-25 09:54:09 UTC"
-    }
+    @data3 =  {
+                id:          "3",
+                customer_id: "4",
+                merchant_id: "26",
+                status:      "shipped",
+                created_at:  "2012-03-25 09:54:09 UTC",
+                updated_at:  "2012-03-25 09:54:09 UTC"
+              }
   end
 
   def load_data
@@ -53,7 +53,6 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal "2", ir.data[8].customer_id
   end
 
-
   def test_it_starts_empty
     invoice_repository = InvoiceRepository.new(nil)
     assert invoice_repository.data.empty?
@@ -69,7 +68,6 @@ class InvoiceRepositoryTest < Minitest::Test
     ir << data1
     assert_equal ir, ir.data.first.repository
   end
-
 
   def test_it_has_three_invoices
     load_data
@@ -223,6 +221,5 @@ class InvoiceRepositoryTest < Minitest::Test
     ir.find_merchant(ir.data.first.merchant_id)
     parent.verify
   end
-
 
 end

@@ -3,7 +3,10 @@ require_relative '../lib/transaction_repository'
 require_relative '../lib/transaction'
 
 class TransactionsRepositoryTest < Minitest::Test
-  attr_reader :data1, :data2, :data3, :transaction_repository
+  attr_reader :data1,
+              :data2,
+              :data3,
+              :transaction_repository
 
   def setup
     @data1 = { id:                   "1",
@@ -32,7 +35,6 @@ class TransactionsRepositoryTest < Minitest::Test
                created_at:           "2013-03-27 14:54:09 UTC",
                updated_at:           "2013-03-27 14:54:09 UTC"
               }
-
   end
 
   def load_test_data
@@ -129,7 +131,6 @@ class TransactionsRepositoryTest < Minitest::Test
   def test_find_all_by_credit_card_number
     load_test_data
     result = transaction_repository.find_all_by_credit_card_number("4654405418242222")
-
     assert_equal "2", result.last.invoice_id
   end
 
@@ -187,7 +188,7 @@ class TransactionsRepositoryTest < Minitest::Test
     tr << data1
     tr << data2
     tr << data3
-    parent.expect(:find_invoice_by_transaction_id, nil, ["1"])
+    parent.expect(:find_invoice_by_id, nil, ["1"])
     tr.find_invoice(tr.data.first.id)
     parent.verify
   end

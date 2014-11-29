@@ -1,12 +1,10 @@
 require_relative 'test_helper'
 require_relative '../lib/transaction'
 
-#id,invoice_id,credit_card_number,credit_card_expiration_date,result,created_at,updated_at
-# h = {nickname: 'IndianGuru', language: 'Marathi', lastname: 'Talim'}
 class TransactionTest < Minitest::Test
   attr_reader   :data
-  def setup
 
+  def setup
     @data = {  id:                   "1",
               invoice_id:           "1",
               credit_card_number:   "4654405418249632",
@@ -14,7 +12,7 @@ class TransactionTest < Minitest::Test
               result:               "success",
               created_at:           "2012-03-27 14:54:09 UTC",
               updated_at:           "2012-03-27 14:54:09 UTC"
-    }
+            }
   end
 
   def test_has_an_id

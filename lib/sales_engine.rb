@@ -37,7 +37,6 @@ class SalesEngine
     invoicerepository.find_all_by_merchant_id(id)
   end
 
-
   def find_invoices_by_customer_id(id)
     invoicerepository.find_all_by_customer_id(id)
   end
@@ -51,7 +50,7 @@ class SalesEngine
   end
 
   def find_customer_by_id(id)
-    customerrepository.find_all_by_id(id)
+    customerrepository.find_by_id(id)
   end
 
   def find_invoice_items_by_item_id(id)
@@ -59,17 +58,15 @@ class SalesEngine
   end
 
   def find_merchant_by_id(id)
-    merchantrepository.find_all_by_id(id)
+    merchantrepository.find_by_id(id)
   end
 
   def find_invoice_by_id(id)
-    invoicerepository.find_all_by_id(id)
+    invoicerepository.find_by_id(id)
   end
 
   def find_item_by_id(id)
     itemrepository.find_by_id(id)
   end
-  
-
 
 end

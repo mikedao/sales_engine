@@ -3,9 +3,6 @@ require_relative '../lib/invoiceitem'
 
 class InvoiceItemTest < Minitest::Test
   attr_reader   :data
-  #id,item_id,invoice_id,quantity,unit_price,created_at,updated_at
-  #1,539,1,5,13635,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
-
 
   def setup
     @data = {

@@ -74,10 +74,9 @@ class SalesEngineTest < Minitest::Test
       assert_equal 2, se.find_invoice_items_by_invoice_id("4").size
     end
 
-    def test_find_customer_by_invoice_id
-      refute se.find_customer_by_id("1").empty?
-      assert_equal "Joey", se.find_customer_by_id("1")[0].first_name
-      assert_equal 1, se.find_customer_by_id("4").size
+    def test_find_customer_by_id
+      refute se.find_customer_by_id("1").nil?
+      assert_equal "Joey", se.find_customer_by_id("1").first_name
     end
 
     def test_find_invoice_items_by_item_id
@@ -86,17 +85,18 @@ class SalesEngineTest < Minitest::Test
     end
 
     def test_find_merchant_by_id
-      refute se.find_merchant_by_id("26").empty?
-      assert_equal "Balistreri, Schaefer and Kshlerin", se.find_merchant_by_id("26")[0].name
+      refute se.find_merchant_by_id("26").nil?
+      assert_equal "Balistreri, Schaefer and Kshlerin", se.find_merchant_by_id("26").name
     end
 
     def test_find_invoice_by_id
-      refute se.find_invoice_by_id("26").empty?
-      assert_equal "7", se.find_invoice_by_id("26")[0].customer_id
+      refute se.find_invoice_by_id("26").nil?
+      assert_equal "7", se.find_invoice_by_id("26").customer_id
     end
 
     def test_find_item_by_id
       refute se.find_item_by_id("26").nil?
       assert_equal "Item Non Deserunt", se.find_item_by_id("26").name
     end
+
 end

@@ -9,33 +9,35 @@ class InvoiceItemRepositoryTest < Minitest::Test
                 :invoiceitemrepository
 
   def setup
-    @data1 = {
-      id:           "1",
-      item_id:      "539",
-      invoice_id:   "1",
-      quantity:     "5",
-      unit_price:   "13735",
-      created_at:   "2012-03-27 14:54:09 UTC",
-      updated_at:   "2012-03-27 14:54:09 UTC"
-    }
-    @data2 = {
-      id:           "2",
-      item_id:      "666",
-      invoice_id:   "2",
-      quantity:     "8",
-      unit_price:   "13735",
-      created_at:   "2012-03-27 14:54:09 UTC",
-      updated_at:   "2012-03-27 14:54:09 UTC"
-    }
-    @data3 = {
-      id:           "3",
-      item_id:      "666",
-      invoice_id:   "2",
-      quantity:     "8",
-      unit_price:   "87768",
-      created_at:   "2014-03-27 14:54:09 UTC",
-      updated_at:   "2014-03-27 14:54:09 UTC"
-    }
+    @data1 =  {
+                id:           "1",
+                item_id:      "539",
+                invoice_id:   "1",
+                quantity:     "5",
+                unit_price:   "13735",
+                created_at:   "2012-03-27 14:54:09 UTC",
+                updated_at:   "2012-03-27 14:54:09 UTC"
+              }
+
+    @data2 =  {
+                id:           "2",
+                item_id:      "666",
+                invoice_id:   "2",
+                quantity:     "8",
+                unit_price:   "13735",
+                created_at:   "2012-03-27 14:54:09 UTC",
+                updated_at:   "2012-03-27 14:54:09 UTC"
+              }
+
+    @data3 =  {
+                id:           "3",
+                item_id:      "666",
+                invoice_id:   "2",
+                quantity:     "8",
+                unit_price:   "87768",
+                created_at:   "2014-03-27 14:54:09 UTC",
+                updated_at:   "2014-03-27 14:54:09 UTC"
+              }
   end
 
   def load_test_data
@@ -214,7 +216,5 @@ class InvoiceItemRepositoryTest < Minitest::Test
     parent.expect(:find_item_by_id, nil, ["539"])
     iir.find_item(iir.data.first.item_id)
   end
-
-
 
 end

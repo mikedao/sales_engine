@@ -33,5 +33,4 @@ class Invoice
     repository.find_merchant(merchant_id)
   end
   
-
 end

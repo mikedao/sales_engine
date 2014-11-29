@@ -27,5 +27,4 @@ class InvoiceItem
     repository.find_item(item_id)
   end
 
-
 end
