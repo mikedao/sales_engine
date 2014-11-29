@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice'
+require_relative '../lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
 #id,customer_id,merchant_id,status,created_at,updated_at
@@ -79,12 +80,14 @@ class InvoiceTest < Minitest::Test
     parent.verify
   end
 
-  # def test_items
-  #   parent = Minitest::Mock.new
-  #   invoice = Invoice.new(data, parent)
-  #   parent.expect(:find_invoice_items, nil, ["1"])
-  #   invoice.items
-  #   parent.verify
-  # end
+  def test_items
+    se = SalesEngine.new
+    se.startup
+    assert_equal 8, se.invoicerepository.data[0].items.size
+    assert se.invoicerepository.data[0].items.is_a?(Array)
+    assert se.invoicerepository.data[0].items[0].is_a?(Item)
+    assert_equal "Item Sunt Saepe", se.invoicerepository.data[0].items[0].name
+  end
+
 
 end

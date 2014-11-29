@@ -34,7 +34,7 @@ class Invoice
   end
 
   def items
-    repository.find_invoice_items(id).map do |invoice_item|
+    invoice_items.map do |invoice_item|
       invoice_item.item
     end
   end
