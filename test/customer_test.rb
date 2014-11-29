@@ -56,4 +56,11 @@ class CustomerTest < Minitest::Test
     assert se.customerrepository.data[0].transactions[0].is_a?(Transaction)
     assert_equal "4580251236515201", se.customerrepository.data[0].transactions[1].credit_card_number
   end
+
+  def test_favorite_merchant
+    se = SalesEngine.new
+    se.startup
+    assert_equal 7, se.customerrepository.data[3].transactions.size
+    assert_equal 'Rutherford, Bogan and Leannon', se.customerrepository.data[50].favorite_merchant.name
+  end
 end
