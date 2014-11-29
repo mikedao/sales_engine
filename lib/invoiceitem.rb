@@ -18,5 +18,10 @@ class InvoiceItem
     @updated_at = data[:updated_at]
     @repository = parent
   end
+  
+  def invoice
+    repository.find_invoice(invoice_id)
+  end
+
 
 end
