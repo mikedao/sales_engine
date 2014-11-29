@@ -60,4 +60,13 @@ class ItemTest < Minitest::Test
     item.invoice_items
     parent.verify
   end
+
+  def test_merchant_calls_parent
+    parent = Minitest::Mock.new
+    item = Item.new(data, parent)
+    parent.expect(:find_merchant, nil, ["1"])
+    item.merchant
+    parent.verify
+  end
+  
 end
