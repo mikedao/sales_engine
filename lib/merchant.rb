@@ -21,7 +21,7 @@ class Merchant
     repository.find_invoices(id)
   end
 
-  def revenue
+  def revenue(date = nil)
     merchant_transactions = invoices.map { |inv| inv.transactions }.flatten
 
     successful_transactions = merchant_transactions.select do |trans|
@@ -32,6 +32,9 @@ class Merchant
       trans.invoice
     end
 
+    successful_invoices = successful_invoices.select { |suc_inv|
+      suc_inv.created_at == date } unless date.nil?
+  
     successful_invoice_items = successful_invoices.map do |inv|
       inv.invoice_items
     end.flatten
@@ -42,5 +45,7 @@ class Merchant
 
     revenue_each.reduce(0, :+)
   end
+
+
 
 end

@@ -55,6 +55,7 @@ class MerchantTest < Minitest::Test
     se = SalesEngine.new
     se.startup
     assert_equal 33805554, se.merchantrepository.data[2].revenue
+    assert_equal 1281794, se.merchantrepository.data[0].revenue("2012-03-25 13:54:11 UTC")
   end
 
 end
