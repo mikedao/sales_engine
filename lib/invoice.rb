@@ -29,5 +29,9 @@ class Invoice
     repository.find_customer(customer_id)
   end
 
+  def merchant
+    repository.find_merchant(merchant_id)
+  end
+  
 
 end

@@ -84,4 +84,9 @@ class SalesEngineTest < Minitest::Test
       refute se.find_invoice_items_by_item_id("1").empty?
       assert_equal "3", se.find_invoice_items_by_item_id("535")[0].quantity
     end
+
+    def test_find_merchant_by_id
+      refute se.find_merchant_by_id("26").empty?
+      assert_equal "Balistreri, Schaefer and Kshlerin", se.find_merchant_by_id("26")[0].name
+    end
 end

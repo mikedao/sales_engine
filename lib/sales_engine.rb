@@ -58,4 +58,8 @@ class SalesEngine
     invoiceitemrepository.find_all_by_item_id(id)
   end
 
+  def find_merchant_by_id(id)
+    merchantrepository.find_all_by_id(id)
+  end
+
 end
