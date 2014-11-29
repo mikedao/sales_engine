@@ -2,9 +2,12 @@ require 'csv'
 require_relative 'invoiceitem'
 
 class InvoiceItemRepository
-  attr_reader   :data
-  def initialize
+  attr_reader   :data,
+                :sales_engine
+
+  def initialize(parent)
     @data = []
+    @sales_engine = parent
   end
 
   def <<(data)
@@ -91,5 +94,9 @@ class InvoiceItemRepository
     @data.find_all do |datum|
       datum.send(attribute) == criteria
     end
+  end
+
+  def find_invoice(id)
+    sales_engine.find_invoice_by_id(id)
   end
 end

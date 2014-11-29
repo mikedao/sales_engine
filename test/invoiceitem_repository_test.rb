@@ -39,14 +39,14 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def load_test_data
-    @invoiceitemrepository = InvoiceItemRepository.new
+    @invoiceitemrepository = InvoiceItemRepository.new(nil)
     invoiceitemrepository << data1
     invoiceitemrepository << data2
     invoiceitemrepository << data3
   end
 
   def test_it_loads_csv_file
-    iir = InvoiceItemRepository.new
+    iir = InvoiceItemRepository.new(nil)
     assert iir.data.empty?
     iir.csv_loader('./test/fixtures/invoice_items_test.csv')
     refute iir.data.empty?
@@ -55,12 +55,12 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_starts_empty
-    invoiceitemrepository = InvoiceItemRepository.new
+    invoiceitemrepository = InvoiceItemRepository.new(nil)
     assert invoiceitemrepository.data.empty?
   end
 
   def test_it_knows_its_parent
-    iir = InvoiceItemRepository.new
+    iir = InvoiceItemRepository.new(nil)
     iir << data1
     assert iir, iir.data.first.repository
   end
@@ -194,5 +194,16 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal "5", e1.quantity
     assert_equal "8", e2.quantity
   end
+
+  def test_find_invoice_calls_sales_engine
+    parent = Minitest::Mock.new
+    iir = InvoiceItemRepository.new(parent)
+    iir << data1
+    iir << data2
+    iir << data3
+    parent.expect(:find_invoice_by_id, nil, ["1"])
+    iir.find_invoice(iir.data.first.invoice_id)
+  end
+
 
 end
