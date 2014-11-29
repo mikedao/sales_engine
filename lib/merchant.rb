@@ -68,4 +68,17 @@ class Merchant
     successful_customers.max_by { |custs| successful_customers.count(custs) }
   end
 
+  def customers_with_pending_invoices
+    merchant_invoices = invoices
+    unsuccessful_invoices = merchant_invoices.select do |merinv|
+      merinv if
+        merinv.transactions.none? do |trans|
+          trans.result == "success"
+        end
+    end
+    unsuccessful_invoices.map do |inv|
+      inv.customer
+    end
+  end
+
 end

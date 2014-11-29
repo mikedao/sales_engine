@@ -64,4 +64,10 @@ class MerchantTest < Minitest::Test
     assert_equal 63, se.merchantrepository.data[3].transactions.size
     assert_equal 'Kuhn', se.merchantrepository.data[50].favorite_customer.last_name
   end
+
+  def test_customers_with_pending_invoices
+    se = SalesEngine.new
+    se.startup
+    assert_equal 2, se.merchantrepository.data[33].customers_with_pending_invoices.size  
+  end
 end
