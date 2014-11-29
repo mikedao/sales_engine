@@ -34,7 +34,7 @@ class Merchant
 
     successful_invoices = successful_invoices.select { |suc_inv|
       suc_inv.created_at == date } unless date.nil?
-  
+
     successful_invoice_items = successful_invoices.map do |inv|
       inv.invoice_items
     end.flatten
@@ -46,6 +46,26 @@ class Merchant
     revenue_each.reduce(0, :+)
   end
 
+  def transactions
+    invoices.map do |invoice|
+      invoice.transactions
+    end.flatten
+  end
 
+  def favorite_customer
+    successful_transactions = transactions.select do |transaction|
+      transaction.result == "success"
+    end
+
+    successful_invoices = successful_transactions.map do |transaction|
+      transaction.invoice
+    end
+
+    successful_customers = successful_invoices.map do |invoice|
+      invoice.customer
+    end
+
+    successful_customers.max_by { |custs| successful_customers.count(custs) }
+  end
 
 end
