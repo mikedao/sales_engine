@@ -79,4 +79,12 @@ class InvoiceTest < Minitest::Test
     parent.verify
   end
 
+  # def test_items
+  #   parent = Minitest::Mock.new
+  #   invoice = Invoice.new(data, parent)
+  #   parent.expect(:find_invoice_items, nil, ["1"])
+  #   invoice.items
+  #   parent.verify
+  # end
+
 end
