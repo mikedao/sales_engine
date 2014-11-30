@@ -80,4 +80,8 @@ class MerchantRepository
     sales_engine.find_invoices_by_merchant_id(id)
   end
 
+  def most_revenue(x)
+    data.sort_by { |datum| datum.revenue }.reverse.first(x)
+  end
+
 end
