@@ -51,6 +51,7 @@ class MerchantTest < Minitest::Test
     parent.verify
   end
 
+
   def test_revenue
     se = SalesEngine.new
     se.startup
@@ -68,6 +69,12 @@ class MerchantTest < Minitest::Test
   def test_customers_with_pending_invoices
     se = SalesEngine.new
     se.startup
-    assert_equal 2, se.merchantrepository.data[33].customers_with_pending_invoices.size  
+    assert_equal 2, se.merchantrepository.data[33].customers_with_pending_invoices.size
+  end
+
+  def test_items_sold
+    se = SalesEngine.new
+    se.startup
+    assert_equal 1064, se.merchantrepository.data[87].items_sold
   end
 end

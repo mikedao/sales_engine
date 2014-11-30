@@ -21,6 +21,19 @@ class Merchant
     repository.find_invoices(id)
   end
 
+  def items_sold
+
+    invoices.map do |invoice|     #array of invoices matching merchant id
+      invoice.successful_invoices
+    end.flatten.map do |invoice|
+      invoice.invoice_items
+    end.flatten.map do |invoice_item|
+      invoice_item.quantity.to_i
+    end.reduce(:+)
+
+  end
+
+
   def revenue(date = nil)
     merchant_transactions = invoices.map { |inv| inv.transactions }.flatten
 
