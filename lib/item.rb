@@ -27,12 +27,14 @@ class Item
     repository.find_merchant(merchant_id)
   end
 
-  def best_day
-    matching_invoices = invoice_items.map do |invitem|
+  def invoices
+    invoice_items.map do |invitem|
       invitem.invoice
     end
+  end
 
-    matching_transactions = matching_invoices.map do |inv|
+  def best_day
+    matching_transactions = invoices.map do |inv|
       inv.transactions
     end.flatten
 
@@ -46,21 +48,16 @@ class Item
 
     succhash = successful_invoices.group_by { |inv| inv.created_at[0..9] }
 
+    result = {}
+
     succhash.map do |date, invoy|
-      succhash[date] = invoy.map do |invoy|
-        invoy.invoice_items
-      end.flatten.select do |inv_item|
-        inv_item.item_id == id
-      end.map do |good_inv_item|
-        good_inv_item.quantity.to_i
-      end.reduce(:+)
+      invoice_items = invoy.map(&:invoice_items).flatten
+      items = invoice_items.select { |inv_item| inv_item.item_id == id }
+      result[date] = items.map { |item| item.quantity.to_i }.reduce(:+)
+
     end
 
-    succhash.each do |key, value|
-    end
+    result.sort_by { |k, v| v }.last.first
 
-    maximum = ""
-    succhash.each { |k, v| maximum = k if v == succhash.values.max }
-    maximum
   end
 end

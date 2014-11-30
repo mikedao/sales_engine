@@ -44,6 +44,12 @@ class TransactionRepository
     finder_all_by(:invoice_id, criteria)
   end
 
+  def find_all_successful_by_invoice_id(criteria)
+    find_all_by_invoice_id(criteria).select do |trans|
+      trans.result == "success"
+    end
+  end
+
   def find_by_credit_card_number(criteria)
     finder_by(:credit_card_number, criteria)
   end
