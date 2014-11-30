@@ -71,8 +71,7 @@ class ItemTest < Minitest::Test
   def test_best_day_for_item
     se = SalesEngine.new
     se.startup
-    se.itemrepository.data[2].best_day
-    assert_equal 10, 10
+    assert_equal "2012-03-10", se.itemrepository.data[2].best_day
   end
 
 end
