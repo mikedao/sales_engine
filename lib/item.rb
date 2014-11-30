@@ -44,7 +44,7 @@ class Item
       trans.invoice
     end
 
-    succhash = successful_invoices.group_by { |inv| inv.created_at[0..10] }
+    succhash = successful_invoices.group_by { |inv| inv.created_at[0..9] }
 
     succhash.map do |date, invoy|
       succhash[date] = invoy.map do |invoy|
