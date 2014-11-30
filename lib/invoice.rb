@@ -21,6 +21,16 @@ class Invoice
     repository.find_transactions(id)
   end
 
+  def successful_transactions
+    repository.find_successful_transactions(id)
+  end
+
+  def successful_invoices
+    successful_transactions.map do |transaction|
+      transaction.invoice
+    end
+  end
+
   def invoice_items
     repository.find_invoice_items(id)
   end

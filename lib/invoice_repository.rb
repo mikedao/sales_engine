@@ -120,4 +120,8 @@ class InvoiceRepository
     sales_engine.find_invoice_items_by_invoice_id(id)
   end
 
+  def find_successful_transactions(id)
+    sales_engine.find_successful_transactions_by_invoice_id(id).flatten
+  end
+
 end

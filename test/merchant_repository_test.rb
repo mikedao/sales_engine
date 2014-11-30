@@ -171,11 +171,18 @@ class MerchantRepositoryTest < Minitest::Test
     se = SalesEngine.new
     se.startup
     result = se.merchantrepository.most_revenue(3)
-    puts result[0].name
     assert 3, result.size
     assert result.is_a?(Array)
     assert result[0].is_a?(Merchant)
   end
 
+  def test_most_items
+    se = SalesEngine.new
+    se.startup
+    result = se.merchantrepository.most_items(3)
+    assert 3, result.size
+    assert result.is_a?(Array)
+    assert result[0].is_a?(Merchant)
+  end
 
 end

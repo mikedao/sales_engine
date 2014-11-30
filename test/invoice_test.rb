@@ -80,6 +80,15 @@ class InvoiceTest < Minitest::Test
     parent.verify
   end
 
+  def test_successful_transactions_calls_parent
+    parent = Minitest::Mock.new
+    invoice = Invoice.new(data, parent)
+    parent.expect(:find_successful_transactions, nil, ["1"])
+    invoice.successful_transactions
+    parent.verify
+  end
+  
+
   def test_items
     se = SalesEngine.new
     se.startup

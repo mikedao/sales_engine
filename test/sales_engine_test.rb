@@ -99,4 +99,10 @@ class SalesEngineTest < Minitest::Test
       assert_equal "Item Non Deserunt", se.find_item_by_id("26").name
     end
 
+    def test_find_successful_transactions_by_invoice_id
+      refute se.find_successful_transactions_by_invoice_id("23").nil?
+      assert_equal "success", se.find_successful_transactions_by_invoice_id("23")[0].result
+    end
+
+
 end

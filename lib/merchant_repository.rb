@@ -84,4 +84,7 @@ class MerchantRepository
     data.sort_by { |datum| datum.revenue }.reverse.first(x)
   end
 
+  def most_items(x)
+    data.sort_by { |datum| datum.items_sold }.reverse.first(x)
+  end
 end
