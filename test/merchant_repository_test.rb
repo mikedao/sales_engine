@@ -185,4 +185,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert result[0].is_a?(Merchant)
   end
 
+  def test_all_merchant_revenue_for_date
+    se = SalesEngine.new
+    se.startup
+    assert_equal 129144, se.merchantrepository.revenue("2012-03-27 11:54:11 UTC")
+  end
+
 end
