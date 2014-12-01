@@ -104,5 +104,8 @@ class ItemRepository
     sales_engine.find_merchant_by_id(id)
   end
 
+  def most_revenue(x)
+    data.sort_by { |datum| datum.revenue }.reverse.first(x)
+  end
 
 end

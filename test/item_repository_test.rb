@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/item_repository'
 require_relative '../lib/item.rb'
+require_relative '../lib/sales_engine'
 
 class ItemRepositoryTest < Minitest::Test
   attr_reader   :data1,
@@ -210,6 +211,16 @@ class ItemRepositoryTest < Minitest::Test
     ir << data3
     parent.expect(:find_merchant_by_id, nil, ["1"])
     ir.find_merchant(ir.data.first.id)
+  end
+
+  def test_top_items_by_revenue
+    se = SalesEngine.new
+    se.startup
+    result = se.itemrepository.most_revenue(5)
+    assert 5, result.size
+    assert result.is_a?(Array)
+    assert result[0].is_a?(Item)
+    assert_equal "Item Dicta Autem", result[0].name
   end
 
 end
