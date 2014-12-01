@@ -6,7 +6,8 @@ class InvoiceItem
                 :unit_price,
                 :created_at,
                 :updated_at,
-                :repository
+                :repository,
+                :revenue
 
   def initialize(data, parent)
     @id         = data[:id]
@@ -17,6 +18,7 @@ class InvoiceItem
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
     @repository = parent
+    @revenue    = data[:unit_price].to_i * data[:quantity].to_i
   end
 
   def invoice

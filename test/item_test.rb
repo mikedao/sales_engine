@@ -74,4 +74,10 @@ class ItemTest < Minitest::Test
     assert_equal "2012-03-10", se.itemrepository.data[2].best_day
   end
 
+  def test_revenue
+    se = SalesEngine.new
+    se.startup
+    assert_equal 5232762, se.itemrepository.data[2].revenue
+  end
+
 end

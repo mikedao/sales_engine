@@ -6,7 +6,7 @@ class Item
               :merchant_id,
               :created_at,
               :updated_at,
-              :repository
+              :repository,
 
   def initialize(data, parent)
     @id          = data[:id]
@@ -60,4 +60,29 @@ class Item
     result.sort_by { |k, v| v }.last.first
 
   end
+
+  def revenue
+    item_transactions = invoices.map { |inv| inv.transactions }.flatten
+
+    successful_transactions = item_transactions.select do |trans|
+      trans.result == 'success'
+    end
+
+    successful_invoices = successful_transactions.map do |trans|
+      trans.invoice
+    end
+
+    successful_invoice_items = successful_invoices.map do |suc_inv|
+      suc_inv.invoice_items
+    end.flatten
+
+    good_invoice_items = successful_invoice_items.select do |inv|
+      inv.item_id == id
+    end
+
+    good_invoice_items.map do |inv_item|
+      inv_item.revenue
+    end.reduce(0, :+)
+  end
+  
 end
