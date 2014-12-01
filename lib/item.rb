@@ -6,7 +6,7 @@ class Item
               :merchant_id,
               :created_at,
               :updated_at,
-              :repository,
+              :repository
 
   def initialize(data, parent)
     @id          = data[:id]
@@ -84,5 +84,8 @@ class Item
       inv_item.revenue
     end.reduce(0, :+)
   end
-  
+
+  def quantity_sold
+    revenue / unit_price.to_i
+  end
 end

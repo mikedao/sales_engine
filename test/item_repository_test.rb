@@ -223,4 +223,14 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal "Item Dicta Autem", result[0].name
   end
 
+  def test_top_items_by_quantity_sold
+    se = SalesEngine.new
+    se.startup
+    result = se.itemrepository.most_items(5)
+    assert 5, result.size
+    assert result.is_a?(Array)
+    assert result[0].is_a?(Item)
+    assert_equal "Item Dicta Autem", result[0].name
+  end
+
 end
