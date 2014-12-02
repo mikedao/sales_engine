@@ -2,30 +2,34 @@ require 'csv'
 require_relative 'invoiceitem'
 
 class InvoiceItemRepository
-  attr_reader   :data,
+  attr_reader   :invoice_items,
                 :sales_engine
 
   def initialize(parent)
-    @data = []
+    @invoice_items = []
     @sales_engine = parent
   end
 
-  def <<(data)
-    @data << InvoiceItem.new(data, self)
+  def inspect
+    "#<#{self.class} #{@invoice_items.size} rows>"
   end
 
-  def csv_loader(path = 'data/invoice_items.csv')
+  def <<(data)
+    @invoice_items << InvoiceItem.new(data, self)
+  end
+
+  def csv_loader(path = '../sales_engine/data/invoice_items.csv')
     CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @data << InvoiceItem.new(data, self)
+      @invoice_items << InvoiceItem.new(data, self)
     end
   end
 
   def all
-    @data
+    @invoice_items
   end
 
   def random
-    @data.sample
+    @invoice_items.sample
   end
 
   def find_by_id(criteria)
@@ -85,13 +89,13 @@ class InvoiceItemRepository
   end
 
   def finder_by(attribute, criteria)
-    @data.find do |datum|
+    @invoice_items.find do |datum|
       datum.send(attribute) == criteria
     end
   end
 
   def finder_all_by(attribute, criteria)
-    @data.find_all do |datum|
+    @invoice_items.find_all do |datum|
       datum.send(attribute) == criteria
     end
   end

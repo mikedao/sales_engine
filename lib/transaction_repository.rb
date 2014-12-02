@@ -2,30 +2,34 @@ require 'csv'
 require_relative 'transaction'
 
 class TransactionRepository
-  attr_reader :data,
+  attr_reader :transactions,
               :sales_engine
 
   def initialize(parent)
-    @data = []
+    @transactions = []
     @sales_engine = parent
   end
 
-  def csv_loader(path = 'data/transactions.csv')
+  def inspect
+    "#<#{self.class} #{@transactions.size} rows>"
+  end
+
+  def csv_loader(path = '../sales_engine/data/transactions.csv')
     CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @data << Transaction.new(data, self)
+      @transactions << Transaction.new(data, self)
     end
   end
 
   def <<(data)
-    @data << Transaction.new(data, self)
+    @transactions << Transaction.new(data, self)
   end
 
   def all
-    @data
+    @transactions
   end
 
   def random
-    @data.sample
+    @transactions.sample
   end
 
   def find_by_id(criteria)
@@ -91,13 +95,13 @@ class TransactionRepository
   end
 
   def finder_by(attribute, criteria)
-    @data.find do |datum|
+    @transactions.find do |datum|
       datum.send(attribute) == criteria
     end
   end
 
   def finder_all_by(attribute, criteria)
-    @data.find_all do |datum|
+    @transactions.find_all do |datum|
       datum.send(attribute) == criteria
     end
   end
