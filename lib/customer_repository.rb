@@ -2,7 +2,7 @@ require 'csv'
 require_relative 'customer'
 
 class CustomerRepository
-  attr_reader :customers,
+  attr_reader :customer,
               :sales_engine
 
   def initialize(parent)

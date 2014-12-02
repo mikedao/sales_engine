@@ -109,11 +109,11 @@ class ItemRepository
   end
 
   def most_revenue(x)
-    data.sort_by { |datum| datum.revenue }.reverse.first(x)
+    items.sort_by { |datum| datum.revenue }.reverse.first(x)
   end
 
   def most_items(x)
-    data.sort_by { |datum| datum.quantity_sold }.reverse.first(x)
+    items.sort_by { |datum| datum.quantity_sold }.reverse.first(x)
   end
 
 end

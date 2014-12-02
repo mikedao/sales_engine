@@ -46,13 +46,13 @@ class InvoiceRepository
 
   def find_by_customer_id(criteria)
     @invoices.find do |datum|
-      datum.customer_id == criteria
+      datum.customer_id.to_i == criteria.to_i
     end
   end
 
   def find_all_by_customer_id(criteria)
     @invoices.find_all do |datum|
-      datum.customer_id == criteria
+      datum.customer_id.to_i == criteria.to_i
     end
   end
 
