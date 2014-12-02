@@ -8,8 +8,8 @@ class Merchant
   def initialize(data, parent)
     @id         = data[:id].to_i
     @name       = data[:name]
-    @created_at = data[:created_at]
-    @updated_at = data[:updated_at]
+    @created_at = Date.parse(data[:created_at]).to_s
+    @updated_at = Date.parse(data[:updated_at]).to_s
     @repository = parent
   end
 
@@ -46,7 +46,7 @@ class Merchant
     end
 
     successful_invoices = successful_invoices.select { |suc_inv|
-      suc_inv.created_at == date } unless date.nil?
+      suc_inv.created_at == date.to_s } unless date.nil?
 
     successful_invoice_items = successful_invoices.map do |inv|
       inv.invoice_items

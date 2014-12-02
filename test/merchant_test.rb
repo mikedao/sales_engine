@@ -27,12 +27,12 @@ class MerchantTest < Minitest::Test
 
   def test_it_has_a_created_at
     merchant = Merchant.new(data, nil)
-    assert_equal "2012-03-27 14:53:59 UTC", merchant.created_at
+    assert_equal "2012-03-27", merchant.created_at
   end
 
   def test_it_has_a_updated_at
     merchant = Merchant.new(data, nil)
-    assert_equal "2012-03-27 14:53:59 UTC", merchant.updated_at
+    assert_equal "2012-03-27", merchant.updated_at
   end
 
   def test_items_calls_parent
@@ -56,7 +56,7 @@ class MerchantTest < Minitest::Test
     se = SalesEngine.new(nil)
     se.startup
     assert_equal BigDecimal(33805554)/100, se.merchant_repository.merchants[2].revenue
-    assert_equal BigDecimal(1281794)/100, se.merchant_repository.merchants[0].revenue("2012-03-25 13:54:11 UTC")
+    assert_equal BigDecimal(1281794)/100, se.merchant_repository.merchants[0].revenue("2012-03-25")
   end
 
   def test_favorite_customer

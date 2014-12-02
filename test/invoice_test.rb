@@ -40,12 +40,12 @@ class InvoiceTest < Minitest::Test
 
   def test_it_has_a_created_at_date
     invoice = Invoice.new(data, nil)
-    assert_equal "2012-03-25 09:54:09 UTC", invoice.created_at
+    assert_equal "2012-03-25", invoice.created_at
   end
 
   def test_it_has_an_updated_at_date
     invoice = Invoice.new(data, nil)
-    assert_equal "2012-03-25 09:54:09 UTC", invoice.updated_at
+    assert_equal "2012-03-25", invoice.updated_at
   end
 
   def test_transactions_calls_parent
@@ -87,7 +87,7 @@ class InvoiceTest < Minitest::Test
     invoice.successful_transactions
     parent.verify
   end
-  
+
 
   def test_items
     se = SalesEngine.new
