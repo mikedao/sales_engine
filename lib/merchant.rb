@@ -53,10 +53,10 @@ class Merchant
     end.flatten
 
     revenue_each = successful_invoice_items.map do |inv_item|
-      inv_item.unit_price.to_i * inv_item.quantity.to_i
+      inv_item.unit_price * inv_item.quantity
     end
 
-    BigDecimal.new(revenue_each.reduce(0, :+))/100
+    revenue_each.reduce(0, :+)
   end
 
   def transactions
