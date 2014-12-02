@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/item'
 require_relative '../lib/sales_engine'
+require 'pry'
 
 class ItemTest < Minitest::Test
   attr_reader :data
@@ -19,7 +20,7 @@ class ItemTest < Minitest::Test
 
   def test_it_has_an_id
     item = Item.new(data, nil)
-    assert_equal "1", item.id
+    assert_equal 1, item.id
   end
 
   def test_it_has_a_name
@@ -34,12 +35,12 @@ class ItemTest < Minitest::Test
 
   def test_it_has_an_unit_price
     item = Item.new(data, nil)
-    assert_equal "75107", item.unit_price
+    assert_equal BigDecimal.new("751.07"), item.unit_price
   end
 
   def test_it_has_an_merchant_id
     item = Item.new(data, nil)
-    assert_equal "1", item.merchant_id
+    assert_equal 1, item.merchant_id
   end
 
   def test_it_has_a_created_at_date
@@ -55,7 +56,7 @@ class ItemTest < Minitest::Test
   def test_invoice_items_calls_parent
     parent = Minitest::Mock.new
     item = Item.new(data, parent)
-    parent.expect(:find_invoice_items, nil, ["1"])
+    parent.expect(:find_invoice_items, nil, [1])
     item.invoice_items
     parent.verify
   end
@@ -63,21 +64,21 @@ class ItemTest < Minitest::Test
   def test_merchant_calls_parent
     parent = Minitest::Mock.new
     item = Item.new(data, parent)
-    parent.expect(:find_merchant, nil, ["1"])
+    parent.expect(:find_merchant, nil, [1])
     item.merchant
     parent.verify
   end
 
   def test_best_day_for_item
-    se = SalesEngine.new
+    se = SalesEngine.new(nil)
     se.startup
-    assert_equal "2012-03-10", se.itemrepository.data[2].best_day
+    assert_equal "2012-03-10", se.item_repository.items[2].best_day
   end
 
   def test_revenue
-    se = SalesEngine.new
+    se = SalesEngine.new(nil)
     se.startup
-    assert_equal 5232762, se.itemrepository.data[2].revenue
+    assert_equal 5232762, se.item_repository.items[2].revenue
   end
 
 end
