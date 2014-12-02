@@ -82,9 +82,9 @@ class Item
       inv.item_id == id
     end
 
-    puts good_invoice_items.map do |inv_item|
+    good_invoice_items.map do |inv_item|
       inv_item.revenue
-    end.reduce(0, :+).to_i
+    end.reduce(0, :+)
   end
 
   def quantity_sold
