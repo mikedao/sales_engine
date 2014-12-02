@@ -56,7 +56,7 @@ class Merchant
       inv_item.unit_price.to_i * inv_item.quantity.to_i
     end
 
-    revenue_each.reduce(0, :+)
+    BigDecimal.new(revenue_each.reduce(0, :+))/100
   end
 
   def transactions
