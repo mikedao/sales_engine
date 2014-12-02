@@ -2,100 +2,104 @@ require 'csv'
 require_relative 'invoice'
 
 class InvoiceRepository
-  attr_reader   :data,
+  attr_reader   :invoices,
                 :sales_engine
 
   def initialize(parent)
-    @data         = []
+    @invoices         = []
     @sales_engine = parent
   end
 
-  def csv_loader(path = './data/invoices.csv')
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
+  end
+
+  def csv_loader(path = '../sales_engine/data/invoices.csv')
     CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @data << Invoice.new(data, self)
+      @invoices << Invoice.new(data, self)
     end
   end
 
   def <<(data)
-    @data << Invoice.new(data,self)
+    @invoices << Invoice.new(data,self)
   end
 
   def all
-    @data
+    @invoices
   end
 
   def random
-    @data.sample
+    @invoices.sample
   end
 
   def find_by_id(criteria)
-    @data.find do |datum|
+    @invoices.find do |datum|
       datum.id == criteria
     end
   end
 
   def find_all_by_id(criteria)
-    @data.find_all do |datum|
+    @invoices.find_all do |datum|
       datum.id == criteria
     end
   end
 
   def find_by_customer_id(criteria)
-    @data.find do |datum|
+    @invoices.find do |datum|
       datum.customer_id == criteria
     end
   end
 
   def find_all_by_customer_id(criteria)
-    @data.find_all do |datum|
+    @invoices.find_all do |datum|
       datum.customer_id == criteria
     end
   end
 
   def find_by_merchant_id(criteria)
-    @data.find do |datum|
+    @invoices.find do |datum|
       datum.merchant_id == criteria
     end
   end
 
   def find_all_by_merchant_id(criteria)
-    @data.find_all do |datum|
+    @invoices.find_all do |datum|
       datum.merchant_id == criteria
     end
   end
 
   def find_by_status(criteria)
-    @data.find do |datum|
+    @invoices.find do |datum|
       datum.status == criteria
     end
   end
 
   def find_all_by_status(criteria)
-    @data.find_all do |datum|
+    @invoices.find_all do |datum|
       datum.status == criteria
     end
   end
 
   def find_by_created_at(criteria)
-    @data.find do |datum|
+    @invoices.find do |datum|
       datum.created_at == criteria
     end
   end
 
   def find_all_by_created_at(criteria)
-    @data.find_all do |datum|
+    @invoices.find_all do |datum|
       datum.created_at == criteria
     end
   end
 
   def find_by_updated_at(criteria)
-    @data.find do |datum|
+    @invoices.find do |datum|
       datum.updated_at == criteria
     end
   end
 
   def find_all_by_updated_at(criteria)
-    @data.find_all do |datum|
+    @invoices.find_all do |datum|
       datum.updated_at == criteria
     end
   end
