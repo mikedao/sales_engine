@@ -124,4 +124,10 @@ class InvoiceRepository
     sales_engine.find_invoice_items_by_invoice_id(id)
   end
 
+  def find_successful_transactions(id)
+    sales_engine.find_transactions_by_invoice_id(id).select do |trans|
+      trans.result == "success"
+    end
+  end
+
 end
