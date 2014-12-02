@@ -85,14 +85,14 @@ class MerchantRepository
   end
 
   def most_revenue(x)
-    data.sort_by { |datum| datum.revenue }.reverse.first(x)
+    merchants.sort_by { |datum| datum.revenue }.reverse.first(x)
   end
 
   def most_items(x)
-    data.sort_by { |datum| datum.items_sold }.reverse.first(x)
+    merchants.sort_by { |datum| datum.items_sold }.reverse.first(x)
   end
 
   def revenue(date)
-    data.map { |datum| datum.revenue(date) }.reduce(0, :+)
+    merchants.map { |datum| datum.revenue(date) }.reduce(0, :+)
   end
 end
