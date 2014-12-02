@@ -14,7 +14,7 @@ class Item
     @id          = data[:id].to_i
     @name        = data[:name]
     @description = data[:description]
-    @unit_price  = BigDecimal.new(data[:unit_price].to_i)/100
+    @unit_price  = BigDecimal.new(data[:unit_price])/100
     @merchant_id = data[:merchant_id].to_i
     @created_at  = data[:created_at]
     @updated_at  = data[:updated_at]
@@ -59,7 +59,7 @@ class Item
 
     end
 
-    result.sort_by { |k, v| v }.last.first
+    Date.parse(result.sort_by { |k, v| v }.last.first)
 
   end
 
@@ -88,6 +88,6 @@ class Item
   end
 
   def quantity_sold
-    revenue / unit_price.to_i
+    unit_price != 0 ? revenue / unit_price : 0
   end
 end

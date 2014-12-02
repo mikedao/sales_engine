@@ -1,3 +1,4 @@
+require 'bigdecimal'
 class InvoiceItem
   attr_reader   :id,
                 :item_id,
@@ -18,7 +19,7 @@ class InvoiceItem
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
     @repository = parent
-    @revenue    = data[:unit_price].to_i * data[:quantity].to_i
+    @revenue    = BigDecimal.new(data[:unit_price])/100 * BigDecimal.new(data[:quantity])
   end
 
   def invoice
