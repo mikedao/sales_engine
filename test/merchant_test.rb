@@ -17,7 +17,7 @@ class MerchantTest < Minitest::Test
 
   def test_it_has_an_id
     merchant = Merchant.new(data, nil)
-    assert_equal "1", merchant.id
+    assert_equal 1, merchant.id
   end
 
   def test_it_has_a_name
@@ -38,7 +38,7 @@ class MerchantTest < Minitest::Test
   def test_items_calls_parent
     parent = Minitest::Mock.new
     merchant = Merchant.new(data, parent)
-    parent.expect(:find_items, nil, ["1"])
+    parent.expect(:find_items, nil, [1])
     merchant.items
     parent.verify
   end
@@ -46,35 +46,35 @@ class MerchantTest < Minitest::Test
   def test_invoices_calls_parent
     parent = Minitest::Mock.new
     merchant = Merchant.new(data, parent)
-    parent.expect(:find_invoices, nil, ["1"])
+    parent.expect(:find_invoices, nil, [1])
     merchant.invoices
     parent.verify
   end
 
 
   def test_revenue
-    se = SalesEngine.new
+    se = SalesEngine.new(nil)
     se.startup
-    assert_equal 33805554, se.merchantrepository.data[2].revenue
-    assert_equal 1281794, se.merchantrepository.data[0].revenue("2012-03-25 13:54:11 UTC")
+    assert_equal BigDecimal(33805554)/100, se.merchant_repository.merchants[2].revenue
+    assert_equal BigDecimal(1281794)/100, se.merchant_repository.merchants[0].revenue("2012-03-25 13:54:11 UTC")
   end
 
   def test_favorite_customer
-    se = SalesEngine.new
+    se = SalesEngine.new(nil)
     se.startup
-    assert_equal 63, se.merchantrepository.data[3].transactions.size
-    assert_equal 'Kuhn', se.merchantrepository.data[50].favorite_customer.last_name
+    assert_equal 63, se.merchant_repository.merchants[3].transactions.size
+    assert_equal 'Kuhn', se.merchant_repository.merchants[50].favorite_customer.last_name
   end
 
   def test_customers_with_pending_invoices
-    se = SalesEngine.new
+    se = SalesEngine.new(nil)
     se.startup
-    assert_equal 2, se.merchantrepository.data[33].customers_with_pending_invoices.size
+    assert_equal 2, se.merchant_repository.merchants[33].customers_with_pending_invoices.size
   end
 
   def test_items_sold
-    se = SalesEngine.new
+    se = SalesEngine.new(nil)
     se.startup
-    assert_equal 1064, se.merchantrepository.data[87].items_sold
+    assert_equal 1064, se.merchant_repository.merchants[87].items_sold
   end
 end
