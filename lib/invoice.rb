@@ -21,6 +21,10 @@ class Invoice
     repository.find_transactions(id)
   end
 
+  def successful?
+    transactions.any? { |transaction| transaction.result == "success"}
+  end
+
   def successful_transactions
     repository.find_successful_transactions(id)
   end
