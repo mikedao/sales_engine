@@ -104,5 +104,9 @@ class SalesEngineTest < Minitest::Test
       assert_equal "success", se.find_successful_transactions_by_invoice_id(23)[0].result
     end
 
+    def test_items_have_revenues
+    
+    end
+
 
 end

@@ -218,22 +218,18 @@ class ItemRepositoryTest < Minitest::Test
     se = SalesEngine.new(nil)
     se.startup
     results = se.item_repository.most_revenue(10)
-    # assert 5, result.size
     assert results.is_a?(Array)
     assert results[0].is_a?(Item)
-    results.map { |result| puts "#{result.name} #{result.revenue.to_f}" }
     assert_equal "Item Dicta Autem", results[0].name
     assert_equal "Item Amet Accusamus", results[4].name
 
   end
 
   def test_top_items_by_quantity_sold
-    skip
     se = SalesEngine.new(nil)
     se.startup
     results = se.item_repository.most_items(10)
-    # assert 5, result.size
-    results.map { |result| puts "#{result.name} #{result.quantity_sold}" }
+    results.each { |result| puts "#{result.name} #{result.quantity_sold}"}
     assert results.is_a?(Array)
     assert results[0].is_a?(Item)
     assert_equal "Item Dicta Autem", results[0].name

@@ -71,9 +71,10 @@ class MerchantRepository
   end
 
   def finder_all_by(attribute, criteria)
-    @merchants.find_all do |datum|
+    result = @merchants.find_all do |datum|
       datum.send(attribute) == criteria
     end
+    result.nil? ? [] : result
   end
 
   def find_items(id)

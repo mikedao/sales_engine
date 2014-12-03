@@ -101,9 +101,10 @@ class TransactionRepository
   end
 
   def finder_all_by(attribute, criteria)
-    @transactions.find_all do |datum|
+    result = @transactions.find_all do |datum|
       datum.send(attribute) == criteria
     end
+    result.nil? ? [] : result
   end
 
   def find_invoice(id)
