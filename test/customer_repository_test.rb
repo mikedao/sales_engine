@@ -41,15 +41,6 @@ class CustomerRepositoryTest < Minitest::Test
     customer_repository << data3
   end
 
-  def test_it_loads_csv_file
-    cr = CustomerRepository.new(nil)
-    assert cr.customers.empty?
-    cr.csv_loader('./test/fixtures/customers_test.csv')
-    refute cr.customers.empty?
-    assert_equal 10, cr.customers.count
-    assert_equal "Parker", cr.customers[6].first_name
-  end
-
   def test_it_starts_empty
     customer_repository = CustomerRepository.new(nil)
     assert customer_repository.customers.empty?
