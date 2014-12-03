@@ -108,7 +108,7 @@ class InvoiceRepository
       datum.updated_at == criteria
     end
     result.nil? ? [] : result
-    
+
   end
 
   def find_transactions(id)
@@ -136,5 +136,28 @@ class InvoiceRepository
       trans.result == "success"
     end
   end
+
+  def create(attributes)
+		data = {
+						id: "#{invoices.last.id + 1}",
+						customer_id: attributes[:customer].id,
+						merchant_id: attributes[:merchant].id,
+						status: attributes[:status],
+						created_at: "#{Date.new}",
+						updated_at: "#{Date.new}"
+					 }
+
+		invoice = Invoice.new(data, self)
+		@invoices << invoice
+
+		invoice_id = data[:id]
+		unique_items = attributes[:items].uniq
+		quantities = attributes[:items].group_by {|item| item}
+		unique_items.each do |item|
+			quantity = quantities[item].count
+			sales_engine.invoice_item_repository.create_invoice_items(invoice_id, item, quantity)
+		end
+		invoice
+	end
 
 end
