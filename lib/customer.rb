@@ -38,7 +38,7 @@ class Customer
       invoice.merchant
     end
 
-    successful_merchants.max_by { |merchies| successful_merchants.count(merchies) }
+    successful_merchants.max_by { |merch| successful_merchants.count(merch) }
   end
 
 end

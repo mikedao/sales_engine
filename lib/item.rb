@@ -67,34 +67,68 @@ class Item
 
 
   def revenue
-    selected_invoices = invoice_items.map { |invoice_item| invoice_item.invoice }
+    selected_invoices = invoice_items.map do |invoice_item|
+      invoice_item.invoice
+    end
+
     selected_invoices.uniq!
-    selected_transactions = selected_invoices.map { |invoice| invoice.transactions }.flatten
-    good_transactions = selected_transactions.select { |transaction| transaction.result == "success" }
-    good_invoices = good_transactions.map { |transaction| transaction.invoice }
-    good_invoice_items = good_invoices.map { |invoice| invoice.invoice_items }.flatten
-    final_invoice_items = good_invoice_items.select {|invoice_item| invoice_item.item_id == id }
-    final = final_invoice_items.map {|invoice_item| invoice_item.unit_price * invoice_item.quantity }
+
+    selected_transactions = selected_invoices.map do |invoice|
+      invoice.transactions
+    end.flatten
+
+    good_transactions = selected_transactions.select do |transaction|
+      transaction.result == "success"
+    end
+
+    good_invoices = good_transactions.map do |transaction|
+      transaction.invoice
+    end
+
+    good_invoice_items = good_invoices.map do |invoice|
+      invoice.invoice_items
+    end.flatten
+
+    final_invoice_items = good_invoice_items.select do |invoice_item|
+      invoice_item.item_id == id
+    end
+
+    final = final_invoice_items.map do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+
     final.flatten.flatten.reduce(:+)
   end
 
   def quantity_sold
-    selected_invoices = invoice_items.map { |invoice_item| invoice_item.nil? ? [] : invoice_item.invoice }
+    selected_invoices = invoice_items.map do |invoice_item|
+      invoice_item.nil? ? [] : invoice_item.invoice
+    end
+
     selected_invoices.uniq!
-    puts "true" if selected_invoices.any? {|selected_invoices| selected_invoices.nil?}
-    selected_transactions = selected_invoices.map { |invoice| invoice.transactions }.flatten
-    puts "true" if selected_transactions.any? {|selected_transactions| selected_transactions.nil?}
-    good_transactions = selected_transactions.select { |transaction| transaction.result == "success" }
-    puts "true" if good_transactions.any? {|good_transactions| good_transactions.nil?}
-    good_invoices = good_transactions.map { |transaction| transaction.invoice }.uniq
-    puts "true" if good_invoices.any? {|good_invoices| good_invoices.nil?}
-    good_invoice_items = good_invoices.map { |invoice| invoice.invoice_items }.flatten
-    puts "true" if good_invoice_items.any? {|good_invoice_items| good_invoice_items.nil?}
-    final_invoice_items = good_invoice_items.select { |invoice_item| invoice_item.item_id == id }
 
-    puts "true" if final_invoice_items.any? {|final_invoice_items| final_invoice_items.nil?}
-    final = final_invoice_items.flatten.map { |invoice_item| invoice_item.quantity }.reduce(:+)
+    selected_transactions = selected_invoices.map do |invoice|
+      invoice.transactions
+    end.flatten
 
-    final
+    good_transactions = selected_transactions.select do |transaction|
+      transaction.result == "success"
+    end
+
+    good_invoices = good_transactions.map do |transaction|
+      transaction.invoice
+    end.uniq
+
+    good_invoice_items = good_invoices.map do |invoice|
+      invoice.invoice_items
+    end.flatten
+
+    final_invoice_items = good_invoice_items.select do |invoice_item|
+      invoice_item.item_id == id
+    end
+
+    final_invoice_items.flatten.map do |invoice_item|
+      invoice_item.quantity
+    end.reduce(:+)
   end
 end
