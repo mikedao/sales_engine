@@ -14,9 +14,9 @@ class InvoiceRepository
     "#<#{self.class} #{@invoices.size} rows>"
   end
 
-  def csv_loader(path = '../sales_engine/data/invoices.csv')
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @invoices << Invoice.new(data, self)
+  def load_data(data)
+    data.map do |row|
+      @invoices << Invoice.new(row,self)
     end
   end
 

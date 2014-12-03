@@ -18,11 +18,12 @@ class InvoiceItemRepository
     @invoice_items << InvoiceItem.new(data, self)
   end
 
-  def csv_loader(path = '../sales_engine/data/invoice_items.csv')
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @invoice_items << InvoiceItem.new(data, self)
+  def load_data(data)
+    data.map do |row|
+      @invoice_items << InvoiceItem.new(row, self)
     end
   end
+
 
   def all
     @invoice_items

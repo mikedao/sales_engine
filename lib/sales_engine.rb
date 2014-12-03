@@ -13,7 +13,14 @@ class SalesEngine
               :merchant_repository,
               :transaction_repository,
               :filepath
-
+  Paths = {
+          crpath:   '../sales_engine/data/customers.csv',
+          irpath:   '../sales_engine/data/invoices.csv',
+          iirpath:  '../sales_engine/data/invoice_items.csv',
+          itpath:   '../sales_engine/data/items.csv',
+          mpath:    '../sales_engine/data/merchants.csv',
+          tpath:    '../sales_engine/data/transactions.csv'
+  }
   def initialize(filepath)
     @filepath = filepath
   end
@@ -25,13 +32,16 @@ class SalesEngine
     @item_repository         = ItemRepository.new(self)
     @merchant_repository     = MerchantRepository.new(self)
     @transaction_repository  = TransactionRepository.new(self)
+    customer_repository.load_data(opener(Paths[:crpath]))
+    invoice_repository.load_data(opener(Paths[:irpath]))
+    invoice_item_repository.load_data(opener(Paths[:iirpath]))
+    item_repository.load_data(opener(Paths[:itpath]))
+    merchant_repository.load_data(opener(Paths[:mpath]))
+    transaction_repository.load_data(opener(Paths[:tpath]))
+  end
 
-    customer_repository.csv_loader
-    invoice_repository.csv_loader
-    invoice_item_repository.csv_loader
-    item_repository.csv_loader
-    merchant_repository.csv_loader
-    transaction_repository.csv_loader
+  def opener(path)
+    CSV.open(path, headers: true, header_converters: :symbol)
   end
 
   def find_items_by_merchant_id(id)
@@ -79,3 +89,12 @@ class SalesEngine
   end
 
 end
+#
+# se=SalesEngine.new(nil)
+# se.startup
+# puts se.customer_repository.customers.first.first_name
+# puts se.invoice_repository.invoices.first.merchant_id
+# puts se.invoice_item_repository.invoice_items.first.quantity
+# puts se.item_repository.items.first.name
+# puts se.merchant_repository.merchants.first.name
+# puts se.transaction_repository.transactions.first.credit_card_number
