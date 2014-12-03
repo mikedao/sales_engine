@@ -138,27 +138,28 @@ class InvoiceRepository
   end
 
   def create(attributes)
-		data = {
-						id: "#{invoices.last.id + 1}",
-						customer_id: attributes[:customer].id,
-						merchant_id: attributes[:merchant].id,
-						status: attributes[:status],
-						created_at: "#{Date.new}",
-						updated_at: "#{Date.new}"
-					 }
+    data =  {
+            id: "#{invoices.last.id + 1}",
+            customer_id: attributes[:customer].id,
+            merchant_id: attributes[:merchant].id,
+            status: attributes[:status],
+            created_at: "#{Date.new}",
+            updated_at: "#{Date.new}"
+            }
 
-		invoice = Invoice.new(data, self)
-		@invoices << invoice
+    invoice = Invoice.new(data, self)
+    @invoices << invoice
 
-		invoice_id = data[:id]
-		unique_items = attributes[:items].uniq
-		quantities = attributes[:items].group_by {|item| item}
-		unique_items.each do |item|
-			quantity = quantities[item].count
-			sales_engine.invoice_item_repository.create_invoice_items(invoice_id, item, quantity)
-		end
-		invoice
-	end
+    invoice_id = data[:id]
+    unique_items = attributes[:items].uniq
+    quantities = attributes[:items].group_by {|item| item}
+    unique_items.each do |item|
+      quant = quantities[item].count
+        sales_engine.invoice_item_repository
+        .create_invoice_items(invoice_id, item, quant)
+      end
+      invoice
+    end
 
   def create_transaction(attributes, id)
     sales_engine.transaction_repository.create_transaction(attributes, id)
