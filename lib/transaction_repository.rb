@@ -113,14 +113,14 @@ class TransactionRepository
 
   def create_transaction(attributes, id)
     data = {
-            id: "#{transactions.last.id + 1}",
-            invoice_id: id,
-            credit_card_number: attributes[:credit_card_number],
-            credit_card_expiration_date: attributes[:credit_card_expiration_date],
-            result: attributes[:result],
-            created_at: "#{Date.new}",
-            updated_at: "#{Date.new}"
-            }
+          id: "#{transactions.last.id + 1}",
+          invoice_id: id,
+          credit_card_number: attributes[:credit_card_number],
+          credit_card_expiration_date: attributes[:credit_card_expiration_date],
+          result: attributes[:result],
+          created_at: "#{Date.new}",
+          updated_at: "#{Date.new}"
+           }
 
     transaction = Transaction.new(data, self)
     @transactions << transaction

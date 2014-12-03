@@ -111,11 +111,15 @@ class ItemRepository
   end
 
   def most_revenue(x)
-    items.sort_by { |item| item.revenue.nil? ? 0 : item.revenue }.reverse.first(x)
+    items.sort_by do |item|
+      item.revenue.nil? ? 0 : item.revenue
+    end.reverse.first(x)
   end
 
   def most_items(x)
-    items.sort_by { |item| item.quantity_sold.nil? ? 0 : item.quantity_sold }.reverse.first(x)
+    items.sort_by do |item|
+      item.quantity_sold.nil? ? 0 : item.quantity_sold
+    end.reverse.first(x)
   end
 
 end
