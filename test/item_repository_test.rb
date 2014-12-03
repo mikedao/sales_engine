@@ -214,7 +214,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_top_items_by_revenue
-    skip
     se = SalesEngine.new(nil)
     se.startup
     results = se.item_repository.most_revenue(10)
@@ -233,7 +232,7 @@ class ItemRepositoryTest < Minitest::Test
     assert results.is_a?(Array)
     assert results[0].is_a?(Item)
     assert_equal "Item Dicta Autem", results[0].name
-    assert_equal "Item Ut Quaerat", results[4].name
+    assert_equal "Item Repudiandae Quia", results[4].name
   end
 
 end

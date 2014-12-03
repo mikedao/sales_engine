@@ -1,6 +1,9 @@
 require 'bigdecimal'
-require 'date'
+require_relative 'support'
+
 class InvoiceItem
+  include Support
+  
   attr_reader   :id,
                 :item_id,
                 :invoice_id,
@@ -17,8 +20,8 @@ class InvoiceItem
     @invoice_id = data[:invoice_id].to_i
     @quantity   = data[:quantity].to_i
     @unit_price = BigDecimal.new(data[:unit_price])/100
-    @created_at = Date.parse(data[:created_at]).to_s
-    @updated_at = Date.parse(data[:updated_at]).to_s
+    @created_at = date_scrubber(data[:created_at])
+    @updated_at = date_scrubber(data[:updated_at])
     @repository = parent
     @revenue    = BigDecimal.new(data[:unit_price])/100 * data[:quantity].to_i
   end

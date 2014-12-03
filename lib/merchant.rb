@@ -1,4 +1,8 @@
+require_relative 'support'
+
 class Merchant
+  include Support
+  
   attr_reader   :id,
                 :name,
                 :created_at,
@@ -8,8 +12,8 @@ class Merchant
   def initialize(data, parent)
     @id         = data[:id].to_i
     @name       = data[:name]
-    @created_at = Date.parse(data[:created_at]).to_s
-    @updated_at = Date.parse(data[:updated_at]).to_s
+    @created_at = date_scrubber(data[:created_at])
+    @updated_at = date_scrubber(data[:updated_at])
     @repository = parent
   end
 

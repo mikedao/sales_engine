@@ -186,10 +186,9 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_all_merchant_revenue_for_date
-    skip
     se = SalesEngine.new(nil)
     se.startup
-    assert_equal 129144, se.merchant_repository.revenue("2012-03-27")
+    assert_equal BigDecimal.new("1908368.05"), se.merchant_repository.revenue("2012-03-27")
   end
 
 end
