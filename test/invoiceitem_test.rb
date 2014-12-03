@@ -18,43 +18,43 @@ class InvoiceItemTest < Minitest::Test
 
   def test_has_an_id
     invoiceitem = InvoiceItem.new(data, nil)
-    assert_equal "1", invoiceitem.id
+    assert_equal 1, invoiceitem.id
   end
 
   def test_has_an_item_id
     invoiceitem = InvoiceItem.new(data, nil)
-    assert_equal "539", invoiceitem.item_id
+    assert_equal 539, invoiceitem.item_id
   end
 
   def test_has_an_invoice_id
     invoiceitem = InvoiceItem.new(data, nil)
-    assert_equal "1", invoiceitem.invoice_id
+    assert_equal 1, invoiceitem.invoice_id
   end
 
   def test_has_a_quantity
     invoiceitem = InvoiceItem.new(data, nil)
-    assert_equal "5", invoiceitem.quantity
+    assert_equal 5, invoiceitem.quantity
   end
 
   def test_has_a_unit_price
     invoiceitem = InvoiceItem.new(data, nil)
-    assert_equal "13635", invoiceitem.unit_price
+    assert_equal BigDecimal.new("136.35"), invoiceitem.unit_price
   end
 
   def test_has_a_created_at
     invoiceitem = InvoiceItem.new(data, nil)
-    assert_equal "2012-03-27 14:54:09 UTC", invoiceitem.created_at
+    assert_equal "2012-03-27", invoiceitem.created_at
   end
 
   def test_has_an_updated_at
     invoiceitem = InvoiceItem.new(data, nil)
-    assert_equal "2012-03-27 14:54:09 UTC", invoiceitem.updated_at
+    assert_equal "2012-03-27", invoiceitem.updated_at
   end
 
   def test_invoice_calls_parent
     parent = Minitest::Mock.new
     invoiceitem = InvoiceItem.new(data, parent)
-    parent.expect(:find_invoice, nil, ["1"])
+    parent.expect(:find_invoice, nil, [1])
     invoiceitem.invoice
     parent.verify
   end
@@ -62,7 +62,7 @@ class InvoiceItemTest < Minitest::Test
   def test_item_calls_parent
     parent = Minitest::Mock.new
     invoiceitem = InvoiceItem.new(data, parent)
-    parent.expect(:find_item, nil, ["539"])
+    parent.expect(:find_item, nil, [539])
     invoiceitem.item
     parent.verify
   end

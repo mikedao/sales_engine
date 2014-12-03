@@ -17,12 +17,12 @@ class TransactionTest < Minitest::Test
 
   def test_has_an_id
     transaction = Transaction.new(data, nil)
-    assert_equal "1", transaction.id
+    assert_equal 1, transaction.id
   end
 
   def test_has_an_invoice_id
     transaction = Transaction.new(data, nil)
-    assert_equal "1", transaction.invoice_id
+    assert_equal 1, transaction.invoice_id
   end
 
   def test_has_a_credit_card_number
@@ -42,18 +42,18 @@ class TransactionTest < Minitest::Test
 
   def test_has_created_at
     transaction = Transaction.new(data, nil)
-    assert_equal "2012-03-27 14:54:09 UTC", transaction.created_at
+    assert_equal "2012-03-27", transaction.created_at
   end
 
   def test_has_updated_at
     transaction = Transaction.new(data, nil)
-    assert_equal "2012-03-27 14:54:09 UTC", transaction.updated_at
+    assert_equal "2012-03-27", transaction.updated_at
   end
 
   def test_invoice_calls_parent
     parent = Minitest::Mock.new
     transaction = Transaction.new(data, parent)
-    parent.expect(:find_invoice, nil, ["1"])
+    parent.expect(:find_invoice, nil, [1])
     transaction.invoice
     parent.verify
   end

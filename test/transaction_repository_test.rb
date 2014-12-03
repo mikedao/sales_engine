@@ -46,41 +46,41 @@ class TransactionsRepositoryTest < Minitest::Test
 
   def test_it_loads_csv_file
     tr = TransactionRepository.new(nil)
-    assert tr.data.empty?
+    assert tr.transactions.empty?
     tr.csv_loader('./test/fixtures/transactions_test.csv')
-    refute tr.data.empty?
-    assert_equal 10, tr.data.count
-    assert_equal "4203696133194408", tr.data[5].credit_card_number
+    refute tr.transactions.empty?
+    assert_equal 10, tr.transactions.count
+    assert_equal "4203696133194408", tr.transactions[5].credit_card_number
   end
 
 
   def test_it_starts_empty
     transaction_repository = TransactionRepository.new(nil)
-    assert transaction_repository.data.empty?
+    assert transaction_repository.transactions.empty?
   end
 
 
   def test_it_knows_parents
     tr = TransactionRepository.new(nil)
     tr << data1
-    assert_equal tr, tr.data.first.repository
+    assert_equal tr, tr.transactions.first.repository
   end
 
   def test_it_has_transactions
     load_test_data
-    assert_equal 3, transaction_repository.data.size
+    assert_equal 3, transaction_repository.transactions.size
   end
 
   def test_it_can_access_individual_transactions
     load_test_data
-    assert_equal "failed", transaction_repository.data[2].result
+    assert_equal "failed", transaction_repository.transactions[2].result
   end
 
   def test_all_method_returns_all_transactions
     load_test_data
     refute transaction_repository.all.empty?
     assert_equal 3, transaction_repository.all.size
-    assert_equal transaction_repository.data, transaction_repository.all
+    assert_equal transaction_repository.transactions, transaction_repository.all
   end
 
   def test_all_returns_an_array
@@ -100,86 +100,86 @@ class TransactionsRepositoryTest < Minitest::Test
 
   def test_find_by_id
     load_test_data
-    result = transaction_repository.find_by_id("2")
+    result = transaction_repository.find_by_id(2)
     assert_equal "4654405418242222", result.credit_card_number
   end
 
   def test_find_all_by_id
     load_test_data
-    result = transaction_repository.find_all_by_id("2")
+    result = transaction_repository.find_all_by_id(2)
     assert_equal "4654405418242222", result.first.credit_card_number
   end
 
   def test_find_by_invoice_id
     load_test_data
-    result = transaction_repository.find_by_invoice_id("2")
+    result = transaction_repository.find_by_invoice_id(2)
     assert_equal "success", result.result
   end
 
   def test_find_all_by_invoice_id
     load_test_data
-    result = transaction_repository.find_all_by_invoice_id("2")
+    result = transaction_repository.find_all_by_invoice_id(2)
     assert_equal "4654405418242222", result.first.credit_card_number
   end
 
   def test_find_by_credit_card_number
     load_test_data
     result = transaction_repository.find_by_credit_card_number("4654405418242222")
-    assert_equal "2", result.invoice_id
+    assert_equal 2, result.invoice_id
   end
 
   def test_find_all_by_credit_card_number
     load_test_data
     result = transaction_repository.find_all_by_credit_card_number("4654405418242222")
-    assert_equal "2", result.last.invoice_id
+    assert_equal 2, result.last.invoice_id
   end
 
   def test_find_by_credit_card_expiration_date
     load_test_data
     result = transaction_repository.find_by_credit_card_expiration_date("")
-    assert_equal "1", result.id
+    assert_equal 1, result.id
   end
 
   def test_find_all_by_credit_card_expiration_date
     load_test_data
     result = transaction_repository.find_all_by_credit_card_expiration_date("")
-    assert_equal "3", result.last.id
+    assert_equal 3, result.last.id
   end
 
   def test_find_by_result
     load_test_data
     result = transaction_repository.find_by_result("success")
-    assert_equal "1", result.id
+    assert_equal 1, result.id
   end
 
   def test_find_all_by_result
     load_test_data
     result = transaction_repository.find_all_by_result("success")
-    assert_equal "2", result.last.id
+    assert_equal 2, result.last.id
   end
 
   def test_find_by_created_at
     load_test_data
-    result = transaction_repository.find_by_created_at("2013-03-27 14:54:09 UTC")
-    assert_equal "2", result.id
+    result = transaction_repository.find_by_created_at("2013-03-27")
+    assert_equal 2, result.id
   end
 
   def test_find_all_created_at
     load_test_data
-    result = transaction_repository.find_all_by_created_at("2013-03-27 14:54:09 UTC")
-    assert_equal "3", result.last.id
+    result = transaction_repository.find_all_by_created_at("2013-03-27")
+    assert_equal 3, result.last.id
   end
 
   def test_find_by_updated_at
     load_test_data
-    result = transaction_repository.find_by_updated_at("2012-03-27 14:54:09 UTC")
-    assert_equal "1", result.id
+    result = transaction_repository.find_by_updated_at("2012-03-27")
+    assert_equal 1, result.id
   end
 
   def test_find_all_updated_at
     load_test_data
-    result = transaction_repository.find_all_by_updated_at("2013-03-27 14:54:09 UTC")
-    assert_equal "3", result.last.id
+    result = transaction_repository.find_all_by_updated_at("2013-03-27")
+    assert_equal 3, result.last.id
   end
 
   def test_it_calls_se_to_find_invoice_by_transaction_id
@@ -188,8 +188,8 @@ class TransactionsRepositoryTest < Minitest::Test
     tr << data1
     tr << data2
     tr << data3
-    parent.expect(:find_invoice_by_id, nil, ["1"])
-    tr.find_invoice(tr.data.first.id)
+    parent.expect(:find_invoice_by_id, nil, [1])
+    tr.find_invoice(tr.transactions.first.id)
     parent.verify
   end
 

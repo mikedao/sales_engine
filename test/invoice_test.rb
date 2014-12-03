@@ -20,17 +20,17 @@ class InvoiceTest < Minitest::Test
 
   def test_it_has_an_id
     invoice = Invoice.new(data, nil)
-    assert_equal "1", invoice.id
+    assert_equal 1, invoice.id
   end
 
   def test_it_has_a_customer_id
     invoice = Invoice.new(data, nil)
-    assert_equal "1", invoice.customer_id
+    assert_equal 1, invoice.customer_id
   end
 
   def test_it_has_a_merchant_id
     invoice = Invoice.new(data, nil)
-    assert_equal "26", invoice.merchant_id
+    assert_equal 26, invoice.merchant_id
   end
 
   def test_it_has_a_status
@@ -51,7 +51,7 @@ class InvoiceTest < Minitest::Test
   def test_transactions_calls_parent
     parent = Minitest::Mock.new
     invoice = Invoice.new(data, parent)
-    parent.expect(:find_transactions, nil, ["1"])
+    parent.expect(:find_transactions, nil, [1])
     invoice.transactions
     parent.verify
   end
@@ -59,7 +59,7 @@ class InvoiceTest < Minitest::Test
   def test_invoice_items_calls_parent
     parent = Minitest::Mock.new
     invoice = Invoice.new(data, parent)
-    parent.expect(:find_invoice_items, nil, ["1"])
+    parent.expect(:find_invoice_items, nil, [1])
     invoice.invoice_items
     parent.verify
   end
@@ -67,7 +67,7 @@ class InvoiceTest < Minitest::Test
   def test_customer_calls_parent
     parent = Minitest::Mock.new
     invoice = Invoice.new(data, parent)
-    parent.expect(:find_customer, nil, ["1"])
+    parent.expect(:find_customer, nil, [1])
     invoice.customer
     parent.verify
   end
@@ -75,7 +75,7 @@ class InvoiceTest < Minitest::Test
   def test_merchant_calls_parent
     parent = Minitest::Mock.new
     invoice = Invoice.new(data, parent)
-    parent.expect(:find_merchant, nil, ["26"])
+    parent.expect(:find_merchant, nil, [26])
     invoice.merchant
     parent.verify
   end
@@ -83,19 +83,19 @@ class InvoiceTest < Minitest::Test
   def test_successful_transactions_calls_parent
     parent = Minitest::Mock.new
     invoice = Invoice.new(data, parent)
-    parent.expect(:find_successful_transactions, nil, ["1"])
+    parent.expect(:find_successful_transactions, nil, [1])
     invoice.successful_transactions
     parent.verify
   end
 
 
   def test_items
-    se = SalesEngine.new
+    se = SalesEngine.new(nil)
     se.startup
-    assert_equal 8, se.invoicerepository.data[0].items.size
-    assert se.invoicerepository.data[0].items.is_a?(Array)
-    assert se.invoicerepository.data[0].items[0].is_a?(Item)
-    assert_equal "Item Sunt Saepe", se.invoicerepository.data[0].items[0].name
+    assert_equal 8, se.invoice_repository.invoices[0].items.size
+    assert se.invoice_repository.invoices[0].items.is_a?(Array)
+    assert se.invoice_repository.invoices[0].items[0].is_a?(Item)
+    assert_equal "Item Sunt Saepe", se.invoice_repository.invoices[0].items[0].name
   end
 
 
