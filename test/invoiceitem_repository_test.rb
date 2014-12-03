@@ -49,44 +49,44 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_loads_csv_file
     iir = InvoiceItemRepository.new(nil)
-    assert iir.data.empty?
+    assert iir.invoice_items.empty?
     iir.csv_loader('./test/fixtures/invoice_items_test.csv')
-    refute iir.data.empty?
-    assert_equal 10, iir.data.count
-    assert_equal "523", iir.data[2].item_id
+    refute iir.invoice_items.empty?
+    assert_equal 10, iir.invoice_items.count
+    assert_equal 523, iir.invoice_items[2].item_id
   end
 
   def test_it_starts_empty
     invoiceitemrepository = InvoiceItemRepository.new(nil)
-    assert invoiceitemrepository.data.empty?
+    assert invoiceitemrepository.invoice_items.empty?
   end
 
   def test_it_knows_its_parent
     iir = InvoiceItemRepository.new(nil)
     iir << data1
-    assert iir, iir.data.first.repository
+    assert iir, iir.invoice_items.first.repository
   end
 
 
   def test_it_has_invoice_items
     load_test_data
-    refute invoiceitemrepository.data.empty?
+    refute invoiceitemrepository.invoice_items.empty?
   end
 
   def test_it_has_three_invoice_items
     load_test_data
-    assert_equal 3, invoiceitemrepository.data.size
+    assert_equal 3, invoiceitemrepository.invoice_items.size
   end
 
   def test_it_can_access_individual_invoice_items
     load_test_data
-    assert_equal "87768", invoiceitemrepository.data[2].unit_price
+    assert_equal BigDecimal.new("877.68"), invoiceitemrepository.invoice_items[2].unit_price
   end
 
   def test_it_can_return_all_invoiceitems
     load_test_data
     assert_equal 3, invoiceitemrepository.all.size
-    assert_equal invoiceitemrepository.data, invoiceitemrepository.all
+    assert_equal invoiceitemrepository.invoice_items, invoiceitemrepository.all
   end
 
   def test_it_can_return_random_invoiceitem
@@ -97,104 +97,103 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_by_id
     load_test_data
-    result = invoiceitemrepository.find_by_id("1")
-    assert_equal "539", result.item_id
+    result = invoiceitemrepository.find_by_id(1)
+    assert_equal 539, result.item_id
   end
 
   def test_it_can_find_all_by_id
     load_test_data
-    result = invoiceitemrepository.find_all_by_id("3")
-    assert_equal "666", result.first.item_id
+    result = invoiceitemrepository.find_all_by_id(3)
+    assert_equal 666, result.first.item_id
   end
 
   def test_it_can_find_by_item_id
     load_test_data
-    result = invoiceitemrepository.find_by_item_id("539")
-    assert_equal "5", result.quantity
+    result = invoiceitemrepository.find_by_item_id(539)
+    assert_equal 5, result.quantity
   end
 
   def test_it_can_find_all_by_item_id
     load_test_data
-    result = invoiceitemrepository.find_all_by_item_id("666")
+    result = invoiceitemrepository.find_all_by_item_id(666)
     assert_equal 2, result.size
     e1, e2 = result
-    assert_equal "2", e1.id
-    assert_equal "3", e2.id
+    assert_equal 2, e1.id
+    assert_equal 3, e2.id
   end
 
   def test_it_can_find_by_invoice_id
     load_test_data
-    result = invoiceitemrepository.find_by_invoice_id("2")
-    assert_equal "13735", result.unit_price
+    result = invoiceitemrepository.find_by_invoice_id(2)
+    assert_equal BigDecimal.new("137.35"), result.unit_price
   end
 
   def test_it_can_find_all_by_invoice_id
     load_test_data
-    result = invoiceitemrepository.find_all_by_invoice_id("2")
+    result = invoiceitemrepository.find_all_by_invoice_id(2)
     assert_equal 2, result.size
     e1, e2 = result
-    assert_equal "2", e1.id
-    assert_equal "3", e2.id
+    assert_equal 2, e1.id
+    assert_equal 3, e2.id
   end
 
   def test_it_can_find_by_quantity
     load_test_data
-    result = invoiceitemrepository.find_by_quantity("5")
-    assert_equal "1", result.id
+    result = invoiceitemrepository.find_by_quantity(5)
+    assert_equal 1, result.id
   end
 
   def test_it_can_find_all_by_quantity
     load_test_data
-    result = invoiceitemrepository.find_all_by_quantity("8")
-    assert_equal 2, result.size
-    e1, e2 = result
-    assert_equal "13735", e1.unit_price
-    assert_equal "87768", e2.unit_price
+    result = invoiceitemrepository.find_all_by_quantity(5)
+    assert_equal 1, result.size
+    assert_equal BigDecimal.new("137.35"), result[0].unit_price
+
   end
 
   def test_it_can_find_by_unit_price
     load_test_data
-    result = invoiceitemrepository.find_by_unit_price("13735")
-    assert_equal "1", result.id
+    result = invoiceitemrepository.find_by_unit_price(BigDecimal.new("137.35"))
+    assert_equal 1, result.id
   end
 
   def test_it_can_find_all_by_unit_price
     load_test_data
-    result = invoiceitemrepository.find_all_by_unit_price("13735")
+    result = invoiceitemrepository.find_all_by_unit_price(BigDecimal.new("137.35"))
     assert_equal 2, result.size
     e1, e2 = result
-    assert_equal "539", e1.item_id
-    assert_equal "666", e2.item_id
+    assert_equal 539, e1.item_id
+    assert_equal 666, e2.item_id
   end
 
   def test_it_can_find_by_created_at_date
     load_test_data
-    result = invoiceitemrepository.find_by_created_at("2012-03-27 14:54:09 UTC")
-    assert_equal "1", result.id
+    result = invoiceitemrepository.find_by_created_at("2012-03-27")
+    assert_equal 1, result.id
   end
 
   def test_it_can_find_all_by_created_at_date
     load_test_data
-    result = invoiceitemrepository.find_all_by_created_at("2012-03-27 14:54:09 UTC")
+    result = invoiceitemrepository.find_all_by_created_at("2012-03-27")
     assert_equal 2, result.size
     e1, e2 = result
-    assert_equal "5", e1.quantity
-    assert_equal "8", e2.quantity
+    assert_equal 5, e1.quantity
+    assert_equal 8, e2.quantity
   end
 
   def test_it_can_find_by_updated_at_date
     load_test_data
-    result = invoiceitemrepository.find_by_updated_at("2014-03-27 14:54:09 UTC")
-    assert_equal "3", result.id
+    result = invoiceitemrepository.find_by_updated_at("2014-03-27")
+    assert_equal 3, result.id
   end
 
   def test_it_can_find_all_by_updated_at_date
     load_test_data
-    result = invoiceitemrepository.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
+    result = invoiceitemrepository.find_all_by_updated_at("2012-03-27")
     assert_equal 2, result.size
     e1, e2 = result
-    assert_equal "5", e1.quantity
-    assert_equal "8", e2.quantity
+    assert_equal 5, e1.quantity
+    assert_equal 8, e2.quantity
   end
 
   def test_find_invoice_calls_sales_engine
@@ -203,8 +202,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
     iir << data1
     iir << data2
     iir << data3
-    parent.expect(:find_invoice_by_id, nil, ["1"])
-    iir.find_invoice(iir.data.first.invoice_id)
+    parent.expect(:find_invoice_by_id, nil, [1])
+    iir.find_invoice(iir.invoice_items.first.invoice_id)
   end
 
   def test_find_item_calls_sales_engine
@@ -213,8 +212,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
     iir << data1
     iir << data2
     iir << data3
-    parent.expect(:find_item_by_id, nil, ["539"])
-    iir.find_item(iir.data.first.item_id)
+    parent.expect(:find_item_by_id, nil, [539])
+    iir.find_item(iir.invoice_items.first.item_id)
   end
 
 end

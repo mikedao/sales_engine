@@ -43,32 +43,32 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_it_loads_csv_file
     cr = CustomerRepository.new(nil)
-    assert cr.data.empty?
+    assert cr.customers.empty?
     cr.csv_loader('./test/fixtures/customers_test.csv')
-    refute cr.data.empty?
-    assert_equal 10, cr.data.count
-    assert_equal "Parker", cr.data[6].first_name
+    refute cr.customers.empty?
+    assert_equal 10, cr.customers.count
+    assert_equal "Parker", cr.customers[6].first_name
   end
 
   def test_it_starts_empty
     customer_repository = CustomerRepository.new(nil)
-    assert customer_repository.data.empty?
+    assert customer_repository.customers.empty?
   end
 
   def test_it_knows_its_parents
     cr = CustomerRepository.new(nil)
     cr << data1
-    assert_equal cr, cr.data.first.repository
+    assert_equal cr, cr.customers.first.repository
   end
 
   def test_it_has_customers
     load_test_data
-    assert_equal 3, customer_repository.data.size
+    assert_equal 3, customer_repository.customers.size
   end
 
   def test_it_can_access_individual_customers
     load_test_data
-    assert_equal "Landers", customer_repository.data[1].last_name
+    assert_equal "Landers", customer_repository.customers[1].last_name
   end
 
   def test_all_returns_empty_when_no_data_loaded
@@ -79,7 +79,7 @@ class CustomerRepositoryTest < Minitest::Test
   def test_all_method_returns_customers
     load_test_data
     assert_equal 3, customer_repository.all.size
-    assert_equal customer_repository.data, customer_repository.all
+    assert_equal customer_repository.customers, customer_repository.all
   end
 
   def test_random_returns_a_single_customer
@@ -94,13 +94,13 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_find_by_id
     load_test_data
-    results = customer_repository.find_by_id("1")
+    results = customer_repository.find_by_id(1)
     assert_equal "Joey", results.first_name
   end
 
   def test_find_all_by_id
     load_test_data
-    results = customer_repository.find_all_by_id("2")
+    results = customer_repository.find_all_by_id(2)
     assert_equal "Joey", results.last.first_name
   end
 
@@ -158,8 +158,8 @@ class CustomerRepositoryTest < Minitest::Test
     cr << data1
     cr << data2
     cr << data3
-    parent.expect(:find_invoices_by_customer_id, nil, ["1"])
-    cr.find_invoices(cr.data.first.id)
+    parent.expect(:find_invoices_by_customer_id, nil, [1])
+    cr.find_invoices(cr.customers.first.id)
     parent.verify
   end
 

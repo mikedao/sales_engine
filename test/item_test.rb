@@ -45,12 +45,12 @@ class ItemTest < Minitest::Test
 
   def test_it_has_a_created_at_date
     item = Item.new(data, nil)
-    assert_equal "2012-03-27 14:53:59 UTC", item.created_at
+    assert_equal "2012-03-27", item.created_at
   end
 
   def test_it_has_an_updated_at_date
     item = Item.new(data, nil)
-    assert_equal "2012-03-27 14:53:59 UTC", item.updated_at
+    assert_equal "2012-03-27", item.updated_at
   end
 
   def test_invoice_items_calls_parent
@@ -72,13 +72,13 @@ class ItemTest < Minitest::Test
   def test_best_day_for_item
     se = SalesEngine.new(nil)
     se.startup
-    assert_equal "2012-03-10", se.item_repository.items[2].best_day
+    assert_equal Date.parse("2012-03-10"), se.item_repository.items[2].best_day
   end
 
   def test_revenue
     se = SalesEngine.new(nil)
     se.startup
-    assert_equal 5232762, se.item_repository.items[2].revenue
+    assert_equal BigDecimal.new("52327.62"), se.item_repository.items[2].revenue
   end
 
 end
