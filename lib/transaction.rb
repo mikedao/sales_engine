@@ -1,5 +1,8 @@
-require 'date'
+require_relative 'support'
+
 class Transaction
+  include Support
+
   attr_reader   :id,
                 :invoice_id,
                 :credit_card_number,
@@ -15,8 +18,8 @@ class Transaction
     @credit_card_number           = data[:credit_card_number]
     @credit_card_expiration_date  = data[:credit_card_expiration_date]
     @result                       = data[:result]
-    @created_at                   = Date.parse(data[:created_at]).to_s
-    @updated_at                   = Date.parse(data[:updated_at]).to_s
+    @created_at                   = date_scrubber(data[:created_at])
+    @updated_at                   = date_scrubber(data[:updated_at])
     @repository                   = parent
   end
 

@@ -1,6 +1,9 @@
 require 'bigdecimal'
+require_relative 'support'
 
 class Item
+  include Support
+  
   attr_reader :id,
               :name,
               :description,
@@ -16,8 +19,8 @@ class Item
     @description = data[:description]
     @unit_price  = BigDecimal.new(data[:unit_price])/100
     @merchant_id = data[:merchant_id].to_i
-    @created_at  = Date.parse(data[:created_at]).to_s
-    @updated_at  = Date.parse(data[:updated_at]).to_s
+    @created_at  = date_scrubber(data[:created_at])
+    @updated_at  = date_scrubber(data[:updated_at])
     @repository  = parent
   end
 

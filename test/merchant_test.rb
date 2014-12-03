@@ -53,11 +53,10 @@ class MerchantTest < Minitest::Test
 
 
   def test_revenue
-    skip
     se = SalesEngine.new(nil)
     se.startup
-    assert_equal BigDecimal(33805554)/100, se.merchant_repository.merchants[2].revenue
-    assert_equal BigDecimal(1281794)/100, se.merchant_repository.merchants[0].revenue("2012-03-25")
+    assert_equal BigDecimal.new("338055.54"), se.merchant_repository.merchants[2].revenue
+    assert_equal BigDecimal.new("24641.43"), se.merchant_repository.merchants[0].revenue("2012-03-25")
   end
 
   def test_favorite_customer
