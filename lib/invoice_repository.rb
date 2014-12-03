@@ -39,9 +39,10 @@ class InvoiceRepository
   end
 
   def find_all_by_id(criteria)
-    @invoices.find_all do |datum|
+    result = @invoices.find_all do |datum|
       datum.id == criteria
     end
+    result.nil? ? [] : result
   end
 
   def find_by_customer_id(criteria)
@@ -51,9 +52,10 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(criteria)
-    @invoices.find_all do |datum|
+    result = @invoices.find_all do |datum|
       datum.customer_id.to_i == criteria.to_i
     end
+    result.nil? ? [] : result
   end
 
   def find_by_merchant_id(criteria)
@@ -63,9 +65,10 @@ class InvoiceRepository
   end
 
   def find_all_by_merchant_id(criteria)
-    @invoices.find_all do |datum|
+    result = @invoices.find_all do |datum|
       datum.merchant_id == criteria
     end
+    result.nil? ? [] : result
   end
 
   def find_by_status(criteria)
@@ -75,9 +78,10 @@ class InvoiceRepository
   end
 
   def find_all_by_status(criteria)
-    @invoices.find_all do |datum|
+    result = @invoices.find_all do |datum|
       datum.status == criteria
     end
+    result.nil? ? [] : result
   end
 
   def find_by_created_at(criteria)
@@ -87,9 +91,10 @@ class InvoiceRepository
   end
 
   def find_all_by_created_at(criteria)
-    @invoices.find_all do |datum|
+    result = @invoices.find_all do |datum|
       datum.created_at == criteria
     end
+    result.nil? ? [] : result
   end
 
   def find_by_updated_at(criteria)
@@ -99,9 +104,11 @@ class InvoiceRepository
   end
 
   def find_all_by_updated_at(criteria)
-    @invoices.find_all do |datum|
+    result = @invoices.find_all do |datum|
       datum.updated_at == criteria
     end
+    result.nil? ? [] : result
+    
   end
 
   def find_transactions(id)

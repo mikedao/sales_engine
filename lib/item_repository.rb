@@ -95,9 +95,11 @@ class ItemRepository
   end
 
   def finder_all_by(attribute, criteria)
-    @items.find_all do |datum|
+    results = @items.find_all do |datum|
       datum.send(attribute) == criteria
     end
+    results.nil? ? [] : results
+
   end
 
   def find_invoice_items(id)
@@ -109,11 +111,11 @@ class ItemRepository
   end
 
   def most_revenue(x)
-    items.sort_by { |datum| datum.revenue }.reverse[0..x-1]
+    items.sort_by { |item| item.revenue.nil? ? 0 : item.revenue }.reverse.first(x)
   end
 
   def most_items(x)
-    items.sort_by { |datum| datum.quantity_sold }.reverse.first(x)
+    items.sort_by { |item| item.quantity_sold.nil? ? 0 : item.quantity_sold }.reverse.first(x)
   end
 
 end
