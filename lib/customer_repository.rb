@@ -14,11 +14,12 @@ class CustomerRepository
     "#<#{self.class} #{@customers.size} rows>"
   end
 
-  def csv_loader(path = '../sales_engine/data/customers.csv')
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @customers << Customer.new(data,self)
+  def load_data(data)
+    data.map do |row|
+      @customers << Customer.new(row, self)
     end
   end
+
 
   def <<(data)
     @customers << Customer.new(data, self)

@@ -5,13 +5,13 @@ Phase 1: Loading data and put data in Repositories - COMPLETE
 
 Phase 2: Listing and searching functionality - COMPLETE
 
-Phase 3: Relationships - IN PROGRESS
+Phase 3: Relationships - COMPLETE
 
-Phase 4: Business Intelligence
+Phase 4: Business Intelligence - COMPLETE
 
-Phase 5: Refactoring
+Phase 5: Refactoring - IN PROGRESS
 
-Phase 6: Extensions
+Phase 6: Extensions - NOPE
 
 
 # Check-in Rubrics

@@ -14,9 +14,9 @@ class ItemRepository
     "#<#{self.class} #{@items.size} rows>"
   end
 
-  def csv_loader(path = '../sales_engine/data/items.csv')
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @items << Item.new(data, self)
+  def load_data(data)
+    data.map do |row|
+      @items << Item.new(row, self)
     end
   end
 

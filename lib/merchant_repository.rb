@@ -14,11 +14,13 @@ class MerchantRepository
     "#<#{self.class} #{@merchants.size} rows>"
   end
 
-  def csv_loader(path = '../sales_engine/data/merchants.csv')
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @merchants << Merchant.new(data, self)
+  def load_data(data)
+    data.map do |row|
+      @merchants << Merchant.new(row, self)
     end
   end
+
+
 
   def <<(data)
     @merchants << Merchant.new(data, self)

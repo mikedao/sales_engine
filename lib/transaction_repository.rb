@@ -14,11 +14,12 @@ class TransactionRepository
     "#<#{self.class} #{@transactions.size} rows>"
   end
 
-  def csv_loader(path = '../sales_engine/data/transactions.csv')
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @transactions << Transaction.new(data, self)
+  def load_data(data)
+    data.map do |row|
+      @transactions << Transaction.new(row, self)
     end
   end
+
 
   def <<(data)
     @transactions << Transaction.new(data, self)
