@@ -54,15 +54,6 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal ir, ir.items.first.repository
   end
 
-  def test_it_loads_csv_file
-    ir = ItemRepository.new(nil)
-    assert ir.items.empty?
-    ir.csv_loader('./test/fixtures/items_test.csv')
-    refute ir.items.empty?
-    assert_equal 10, ir.items.count
-    assert_equal BigDecimal.new("311.63"), ir.items[6].unit_price
-  end
-
   def test_it_starts_empty
     item_repository = ItemRepository.new(nil)
     assert item_repository.items.empty?
@@ -228,7 +219,6 @@ class ItemRepositoryTest < Minitest::Test
     se = SalesEngine.new(nil)
     se.startup
     results = se.item_repository.most_items(10)
-    results.each { |result| puts "#{result.name} #{result.quantity_sold}"}
     assert results.is_a?(Array)
     assert results[0].is_a?(Item)
     assert_equal "Item Dicta Autem", results[0].name

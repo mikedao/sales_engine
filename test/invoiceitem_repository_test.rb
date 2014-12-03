@@ -47,15 +47,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
     invoiceitemrepository << data3
   end
 
-  def test_it_loads_csv_file
-    iir = InvoiceItemRepository.new(nil)
-    assert iir.invoice_items.empty?
-    iir.csv_loader('./test/fixtures/invoice_items_test.csv')
-    refute iir.invoice_items.empty?
-    assert_equal 10, iir.invoice_items.count
-    assert_equal 523, iir.invoice_items[2].item_id
-  end
-
   def test_it_starts_empty
     invoiceitemrepository = InvoiceItemRepository.new(nil)
     assert invoiceitemrepository.invoice_items.empty?

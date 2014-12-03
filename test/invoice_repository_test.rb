@@ -1,6 +1,10 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice_repository'
 require_relative '../lib/invoice'
+require_relative '../lib/customer'
+require_relative '../lib/merchant'
+require_relative '../lib/item'
+require_relative '../lib/sales_engine'
 
 class InvoiceRepositoryTest < Minitest::Test
   attr_reader   :data1,
@@ -42,15 +46,6 @@ class InvoiceRepositoryTest < Minitest::Test
     invoice_repository << data1
     invoice_repository << data2
     invoice_repository << data3
-  end
-
-  def test_it_loads_csv_file
-    ir = InvoiceRepository.new(nil)
-    assert ir.invoices.empty?
-    ir.csv_loader('./test/fixtures/invoices_test.csv')
-    refute ir.invoices.empty?
-    assert_equal 10, ir.invoices.count
-    assert_equal 2, ir.invoices[8].customer_id
   end
 
   def test_it_starts_empty
@@ -231,6 +226,24 @@ class InvoiceRepositoryTest < Minitest::Test
     parent.expect(:find_invoice_items_by_invoice_id, nil, [1])
     ir.find_invoice_items(ir.invoices.first.id)
     parent.verify
+  end
+
+  def test_invoice_repository_can_create_new_invoice
+    engine = SalesEngine.new(nil)
+    engine.startup
+    assert_equal 4843, engine.invoice_repository.invoices.size
+
+    customer = engine.customer_repository.find_by_id(7)
+    merchant = engine.merchant_repository.find_by_id(22)
+
+    items = (1..3).map { engine.item_repository.random }
+
+
+    invoice = engine.invoice_repository.create(customer: customer, merchant: merchant, items: items)
+
+    assert_equal 4844, engine.invoice_repository.invoices.size
+    assert_equal invoice.merchant_id ,merchant.id
+    assert_equal invoice.customer.id ,customer.id
   end
 
 end

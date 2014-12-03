@@ -44,16 +44,6 @@ class TransactionsRepositoryTest < Minitest::Test
     transaction_repository << data3
   end
 
-  def test_it_loads_csv_file
-    tr = TransactionRepository.new(nil)
-    assert tr.transactions.empty?
-    tr.csv_loader('./test/fixtures/transactions_test.csv')
-    refute tr.transactions.empty?
-    assert_equal 10, tr.transactions.count
-    assert_equal "4203696133194408", tr.transactions[5].credit_card_number
-  end
-
-
   def test_it_starts_empty
     transaction_repository = TransactionRepository.new(nil)
     assert transaction_repository.transactions.empty?

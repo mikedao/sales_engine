@@ -40,15 +40,6 @@ class MerchantRepositoryTest < Minitest::Test
     merchant_repository << data3
   end
 
-  def test_it_loads_csv_file
-    mr = MerchantRepository.new(nil)
-    assert mr.merchants.empty?
-    mr.csv_loader('./test/fixtures/merchants_test.csv')
-    refute mr.merchants.empty?
-    assert_equal 10, mr.merchants.count
-    assert_equal "Willms and Sons", mr.merchants[2].name
-  end
-
   def test_it_knows_its_parent
     mr = MerchantRepository.new(nil)
     mr << data1
