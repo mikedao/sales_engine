@@ -53,4 +53,8 @@ class Invoice
     end.flatten
   end
 
+  def charge(attributes)
+    repository.create_transaction(attributes, id)
+  end
+
 end

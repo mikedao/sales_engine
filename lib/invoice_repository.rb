@@ -160,4 +160,8 @@ class InvoiceRepository
 		invoice
 	end
 
+  def create_transaction(attributes, id)
+    sales_engine.transaction_repository.create_transaction(attributes, id)
+  end
+
 end
